@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PE文件整理 | 0bs3rver的小屋</title><meta name="description" content="PE文件整理"><meta name="keywords" content="RE"><meta name="author" content="0bs3rver"><meta name="copyright" content="0bs3rver"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="PE文件整理"><meta name="twitter:description" content="PE文件整理"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="PE文件整理"><meta property="og:url" content="http://yoursite.com/2020/04/29/PE%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/"><meta property="og:site_name" content="0bs3rver的小屋"><meta property="og:description" content="PE文件整理"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/04/29/PE%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/"><link rel="prev" title="DLL注入" href="http://yoursite.com/2020/04/29/DLL%E6%B3%A8%E5%85%A5/"><link rel="next" title="安装ubuntu16虚拟机" href="http://yoursite.com/2020/04/22/%E5%AE%89%E8%A3%85ubuntu16%E8%99%9A%E6%8B%9F%E6%9C%BA/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">7</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PE相关"><span class="toc-number">1.</span> <span class="toc-text">PE相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PE文件格式"><span class="toc-number">1.1.</span> <span class="toc-text">PE文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PE头"><span class="toc-number">1.1.1.</span> <span class="toc-text">PE头</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NT头"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">NT头</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#第一个成员：签名（Signature）结构体"><span class="toc-number">1.1.1.1.1.</span> <span class="toc-text">第一个成员：签名（Signature）结构体</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#第二个成员：文件头（File-Header"><span class="toc-number">1.1.1.1.2.</span> <span class="toc-text">第二个成员：文件头（File Header)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#第三个成员：可选头（Optional-Header）"><span class="toc-number">1.1.1.1.3.</span> <span class="toc-text">第三个成员：可选头（Optional Header）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#节区头"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">节区头</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#IMAGE-SECTION-HEADER"><span class="toc-number">1.1.1.2.1.</span> <span class="toc-text">IMAGE_SECTION_HEADER</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RVA-to-RAW"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">RVA to RAW</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IAT"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">IAT</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL"><span class="toc-number">1.1.1.4.1.</span> <span class="toc-text">DLL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IMAGE-IMPORT-DESCRIPTOR"><span class="toc-number">1.1.1.4.2.</span> <span class="toc-text">IMAGE_IMPORT_DESCRIPTOR</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#在notepad-exe中"><span class="toc-number">1.1.1.4.3.</span> <span class="toc-text">在notepad.exe中</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EAT"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">EAT</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#IMAGE-EXPORT-DIRECTORY结构体"><span class="toc-number">1.1.1.5.1.</span> <span class="toc-text">IMAGE_EXPORT_DIRECTORY结构体</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#在kernel32-dll中"><span class="toc-number">1.1.1.5.2.</span> <span class="toc-text">在kernel32.dll中</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PE文件压缩相关"><span class="toc-number">1.2.</span> <span class="toc-text">PE文件压缩相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#运行时压缩器"><span class="toc-number">1.2.1.</span> <span class="toc-text">运行时压缩器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩器"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">压缩器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#保护器"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">保护器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调试UPX压缩的notepad程序"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">调试UPX压缩的notepad程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#快速查找UPX-OEP的方法"><span class="toc-number">1.2.1.3.1.</span> <span class="toc-text">快速查找UPX OEP的方法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基址重定位表"><span class="toc-number">1.3.</span> <span class="toc-text">基址重定位表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PE重定位"><span class="toc-number">1.3.1.</span> <span class="toc-text">PE重定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PE重定位时执行的操作"><span class="toc-number">1.3.2.</span> <span class="toc-text">PE重定位时执行的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PE重定位操作原理"><span class="toc-number">1.3.3.</span> <span class="toc-text">PE重定位操作原理</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">0bs3rver的小屋</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">PE文件整理</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-04-29 13:24:01"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-04-29</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-04-29 16:34:23"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-04-29</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/RE/">RE</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1 id="PE相关"><a href="#PE相关" class="headerlink" title="PE相关"></a>PE相关</h1><h2 id="PE文件格式"><a href="#PE文件格式" class="headerlink" title="PE文件格式"></a>PE文件格式</h2><p>PE文件是windows下的32位可执行文件格式，64位称为PE+或PE32+</p>
+<p>文件中使用偏移（offset）内存中使用VA（Virtual Address）来表示位置，VA指的是进程虚拟内存中的绝对地址，RVA（Relative Virtual Address）指从某个基准位置（ImageBase）开始的相对地址，RVA+ImageBase=VA</p>
+<h3 id="PE头"><a href="#PE头" class="headerlink" title="PE头"></a>PE头</h3><p>在PE头的最前面有IMAGE_DOS_HEADER结构体，即DOS头，大小为64字节，比较重要的成员是e_magic(DOS签名，4D5A=&gt;ASCII值”MZ”，位于结构体的第一个)，e_lfanew (指示NT头的偏移【根据不同文件拥有可变值】)，使用winhex打开windows自带的notepad文件，结构体情况如下（用notepad.exe文件演示）</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-1.png"  alt=""></p>
+<p>文件开始的2个字节为4D5A，e_lfanew值为0000000E（Intel系列的CPU以逆序存储数据，称为小端序标识法）</p>
+<p>DOS存根在DOS头下方，目的是让程序可以在DOS环境中运行</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-2.png"  alt=""></p>
+<h4 id="NT头"><a href="#NT头" class="headerlink" title="NT头"></a>NT头</h4><p>NT头IMAGE_NT_HEADERS由三个成员组成，大小为F8</p>
+<h5 id="第一个成员：签名（Signature）结构体"><a href="#第一个成员：签名（Signature）结构体" class="headerlink" title="第一个成员：签名（Signature）结构体"></a>第一个成员：签名（Signature）结构体</h5><p>Signature从0xE0开始</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-3.png"  alt=""></p>
+<h5 id="第二个成员：文件头（File-Header"><a href="#第二个成员：文件头（File-Header" class="headerlink" title="第二个成员：文件头（File Header)"></a>第二个成员：文件头（File Header)</h5><p>File Header为表现文件大致属性的文件头，IMAGE_FILE_HEADER结构体，重要成员：</p>
+<p>1、Machine：标识兼容的CPU，本程序中值为0x014C，兼容Intel386</p>
+<p>2、NumberOfSection：用于指出文件中存在的节区数量，该值一定要大于0，且当定于的节区数量与实际节区不同时，将发生运行错误，本程序中值为0x0003</p>
+<p>3、SizeOfOptionalHeader：用于指出最后一个NT头成员的大小，本程序中值为0x00E0</p>
+<p>4、Characteristics：用于标识文件的属性，文件是否是可运行的形态，是否为DLL文件等信息，本程序中值为0x010F</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-4.png"  alt=""></p>
+<h5 id="第三个成员：可选头（Optional-Header）"><a href="#第三个成员：可选头（Optional-Header）" class="headerlink" title="第三个成员：可选头（Optional Header）"></a>第三个成员：可选头（Optional Header）</h5><p>Optional Header为IMAGE_OPTIONAL_HEADER32结构体，重要成员：</p>
+<p>1、Magic：Magic码为0x10B时，为IMAGE_OPTIONAL_HEADER32结构体，Magic码为0x20B时，为IMAGE_OPTIONAL_HEADER64结构体</p>
+<p>2、AddressOfEntryPoint：持有EP的RVA值，指出程序最先执行的代码起始地址</p>
+<p>3、ImageBase：指出文件的优先装入地址，一般情况下EXE文件的ImageBase值为0x00400000，DLL文件为0x10000000，执行PE文件时，PE装载器先创建进程，再将文件载入内存，然后把EIP寄存器的值设置为ImageBase+AddressOfEntryPoint</p>
+<p>4、SectionAlignment, FileAlignment：FileAlignment指定了节区在磁盘文件中的最小单位，SectionAlignment指定了节区在内存中的最小单位。磁盘文件或内存的大小必为FileFlignment或SectionAlignment值的整数倍</p>
+<p>5、SizeOfImage：指定了PE Image在虚拟内存中所占空间的大小</p>
+<p>6、SizeOfHeaders：用来指出整个PE头的大小，该值也必须是FileAlignment的整数倍，第一节区所在位置与SizeOfHeaders距文件开始偏移的量相同</p>
+<p>7、Subsystem：用于区分系统驱动文件（ *.sys）与普通的可执行文件（ *.exe， *.dll），值：1（Drive文件，系统驱动 eg：ntfs.sys）2（GUI文件，窗口应用程序 eg：notepad.exe）3（GUI文件，控制台应用程序 eg：cmd.exe）</p>
+<p>8、NumberOfRvaAndSizes：用于指定DataDirectory（IMAGE_OPTIONAL_HEADER32结构体的最后一个成员）数组的个数</p>
+<p>9、DataDirectory：由IMAGE_DATA_DIRECTORY结构体组成的数组，其中DataDirectory[0]= EXPORT Directory，DataDirectory[1] = IMPORT Directory，DataDirectory[2] = RESOURCE Directory（RVA与Size）</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-5.png"  alt=""></p>
+<h4 id="节区头"><a href="#节区头" class="headerlink" title="节区头"></a>节区头</h4><p>节区头定义了各节区属性，为了保证程序的安全性，PE文件中的code（代码，执行，读取权限）、data（数据，非执行，读写权限）、resource（资源，非执行，读写权限）等按照属性分类存储在不同节区。</p>
+<h5 id="IMAGE-SECTION-HEADER"><a href="#IMAGE-SECTION-HEADER" class="headerlink" title="IMAGE_SECTION_HEADER"></a>IMAGE_SECTION_HEADER</h5><p>节区头是由IMAGE_SECTION_HEADER结构体组成的数组，每个结构体对应一个节区。重要成员：</p>
+<p>1、VirtualSize：内存中节区所占大小</p>
+<p>2、VirtualAddress：内存中节区起始地址（RVA），不含值，由定义在IMAGE_OPTIONAL_HEADER32中的SectionAlignment确定</p>
+<p>3、SizeOfRawData：磁盘文件中节区所占大小</p>
+<p>4、PointerToRawData：磁盘文件中节区起始位置，不含值，由定义在IMAGE_OPTIONAL_HEADER32中的FileAlignment确定</p>
+<p>5、Characteristics：节区属性</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-6.png"  alt=""></p>
+<p>tips：磁盘文件中的PE与内存中的PE有不同形态，将装载到内存中的形态称为“映像（Image）”以示区别</p>
+<h4 id="RVA-to-RAW"><a href="#RVA-to-RAW" class="headerlink" title="RVA to RAW"></a>RVA to RAW</h4><p>RVA指内存地址，RAW指文件偏移</p>
+<p>RAW - PointerToRawData = RVA - VirtualAddress</p>
+<p>RAW = RVA - VirtualAddress + PointerToRawData</p>
+<p>本程序中</p>
+<p>PointerToRawData = 0x00000400</p>
+<p>VirtualAddress = 0x00001000</p>
+<h4 id="IAT"><a href="#IAT" class="headerlink" title="IAT"></a>IAT</h4><p>IAT即Import Address Table，导入地址表，是一种表格，用来记录程序正在使用哪些库中哪些函数。（Table即指数组）</p>
+<h5 id="DLL"><a href="#DLL" class="headerlink" title="DLL"></a>DLL</h5><p>DLL即Dynamic Link Librart，动态链接库，好处：</p>
+<p>1、不需要把库包含到程序中，单独组成DLL文件，需要时调用即可</p>
+<p>2、内存映射技术使加载后的DLL代码、资源在多个进程中实现共享</p>
+<p>3、更新库时只要替换相关DLL文件即可</p>
+<p>加载DLL的方式实际有“显式链接（Explicit Linking）”和“隐式链接（Implicit Linking）”</p>
+<h5 id="IMAGE-IMPORT-DESCRIPTOR"><a href="#IMAGE-IMPORT-DESCRIPTOR" class="headerlink" title="IMAGE_IMPORT_DESCRIPTOR"></a>IMAGE_IMPORT_DESCRIPTOR</h5><p>IMAGE_IMPORT_DESCRIPTOR结构体中记录着文件要导入哪些库文件。</p>
+<p>Import：导入，向库提供服务（函数）</p>
+<p>Export：导出，从库向其他PE文件提供服务（函数）</p>
+<p>导入多少个库就存多少个IMAGE_IMPORT_DESCRIPTOR结构体，这些结构体构成了数组，最后以NULL结构体结束。INT与IAT都是长整型数组。</p>
+<p>IMAGE_IMPORT_DESCRIPTOR结构体数组也被称为IMPORT Directory Table</p>
+<p>重要成员：</p>
+<p>1、OriginalFirstThunk：INT（Tmport Name Table）的地址（RVA）</p>
+<p>2、Name：库名称字符串的地址（RVA）</p>
+<p>3、FirstThunk：IAT的地址（RVA）</p>
+<p>PE装载器将导入函数输入至IAT的顺序：</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-7.png"  alt=""></p>
+<h5 id="在notepad-exe中"><a href="#在notepad-exe中" class="headerlink" title="在notepad.exe中"></a>在notepad.exe中</h5><p>使用RVA to RAW可得文件偏移为6A04（7604-1000+400）</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-8.png"  alt=""></p>
+<p>红框即为第一个元素</p>
+<p>1、库名称（Name）</p>
+<p>在文件中6EAC可得（RVA:7AAC -&gt; RAW:6EAC）库名称comdlg32.dll</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-9.png"  alt=""></p>
+<p>2、OriginalFirstThunk-INT</p>
+<p>RVA：7990 -&gt; RAW：6D90</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-10.png"  alt=""></p>
+<p>3、IMAGE_IMPORT_BY_NAME</p>
+<p>RVA：7A7A -&gt; RAW：6E7A</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-11.png"  alt=""></p>
+<p>最初的两个字节值000F为Ordinal，是库中函数的固有编号，函数名称为PageSetupDlgW，最后以00结尾</p>
+<p>4、FirstThunk-IAT</p>
+<p>RVA：12C4-&gt; RAW：06C4</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-12.png"  alt=""></p>
+<p>由结构体指针数组组成，NULL结尾，第一个元素被硬编码成76324906，没有实际意义，当exe文件加载到内存时，准确的地址值会取代该值。</p>
+<h4 id="EAT"><a href="#EAT" class="headerlink" title="EAT"></a>EAT</h4><p>Windows操作系统中，“库”是为了方便其他程序调用而集中包含相关函数的文件（DLL/SYS）。Win32 API是最具代表性的库，其中的kernel32.dll文件被称为最核心的库文件。</p>
+<p>EAT是一种核心机制，它使不同的应用程序可以调用库文件中提供的函数，PE文件中的特定结构体（IMAGE_EXPORT_DIRECTORY）保存着导出信息，且PE文件中仅有一个用来说明EAT的IMAGE_EXPORT_DIRECTORY结构体</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-13.png"  alt=""></p>
+<p>如图为kernel32.dll文件的IMAGE_OPTIONAL_HEADER32.DataDirectory[0]，可得RVA=262C，所以RAW为1A2C</p>
+<h5 id="IMAGE-EXPORT-DIRECTORY结构体"><a href="#IMAGE-EXPORT-DIRECTORY结构体" class="headerlink" title="IMAGE_EXPORT_DIRECTORY结构体"></a>IMAGE_EXPORT_DIRECTORY结构体</h5><p>重要成员：</p>
+<p>1、NumberOfFunctions：实际Export函数的个数</p>
+<p>2、NumberOfNames：Export函数中具名的函数个数</p>
+<p>3、AddressOfFunctions：Export函数地址数组（数组元素个数=NumberOfFunctions）</p>
+<p>4、AddressOfNames：函数名称地址数组（数组元素个数=NumberOfNames）</p>
+<p>5、AddressOfNameOrdinals：Ordinal地址数组（数组元素个数=NumberOfNames）</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-14.png"  alt=""></p>
+<h5 id="在kernel32-dll中"><a href="#在kernel32-dll中" class="headerlink" title="在kernel32.dll中"></a>在kernel32.dll中</h5><p>1、函数名称数组</p>
+<p>AddressOfNames成员的值为RVA = 3538，即RAW = 2938，在Winhex中</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-15.png"  alt=""></p>
+<p>数组元素个数为NumberOfNames = 3B9</p>
+<p>2、查找指定函数名称</p>
+<p>要查找的函数名称字符串为“AddAtomW”，只需要找到RVA数组中第三个元素的值即可（RVA：4BB3 -&gt; RAW：3FB3）</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-16.png"  alt=""></p>
+<p>3、Ordinal数组</p>
+<p>下面查找“AddAtomW”函数的Ordinal值。AddressOfNameOrdinals成员的值为RVA：441C -&gt; 381C，ordinal数组中的各元素大小为2个字节</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-17.png"  alt=""></p>
+<p>4、ordinal</p>
+<p>将2中求得得index值（2）应用到3中的Ordinal数组即可求得Ordinal（2）。</p>
+<p>AddressOfNameOrdibals[index] = ordinal (index=2, ordinal=2)</p>
+<p>5、函数地址数组-EAT</p>
+<p>最后查找AddAtomW的实际函数地址，AddressOfFunctions成员的值为RVA：2654 -&gt; RAW：1A54</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-18.png"  alt=""></p>
+<p>如图为4字节函数地址RVA数组</p>
+<p>6、AddAtomW函数地址</p>
+<p>用4中求得的Ordinal用作索引，可得RVA = 000326D9</p>
+<p>AddressOfFunctions[ordinal] = RVA (ordinal=2, RVA=326D9)</p>
+<p>Kernel32.dll的ImageBase = 7C800000，因此AddAtomW函数的实际地址（VA）为7C8326D9，用OD验证得</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-19.png"  alt=""></p>
+<h2 id="PE文件压缩相关"><a href="#PE文件压缩相关" class="headerlink" title="PE文件压缩相关"></a>PE文件压缩相关</h2><p>无论哪种形态的文件都是由二进制组成的，经过压缩的文件若能100%恢复，则称为无损压缩（Lossless Data Compression），如ZIP，RAR；若不能恢复原状，则称为有损压缩（Loss Data Compression），如jpg，mp3，mp4。</p>
+<h3 id="运行时压缩器"><a href="#运行时压缩器" class="headerlink" title="运行时压缩器"></a>运行时压缩器</h3><p>运行时压缩器是PE文件的专用压缩器<img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-20.png"  alt=""></p>
+<p>把普通PE文件创建成运行时压缩文件的实用程序称为压缩器（Packer），经反逆向（Anti-Reversing）技术特别处理的压缩器称为保护器</p>
+<h4 id="压缩器"><a href="#压缩器" class="headerlink" title="压缩器"></a>压缩器</h4><p>目的是缩减PE文件大小和隐藏PE文件内部代码与资源，大致分为单纯压缩PE文件的压缩器如UPX，ASPACK，和对源文件进行较大变形，严重破坏PE头，常用于恶意程序的压缩器如UPack，PESpin等。</p>
+<h4 id="保护器"><a href="#保护器" class="headerlink" title="保护器"></a>保护器</h4><p>目的是防止破解，保护代码与资源，常用于保护游戏等的安全程序</p>
+<h4 id="调试UPX压缩的notepad程序"><a href="#调试UPX压缩的notepad程序" class="headerlink" title="调试UPX压缩的notepad程序"></a>调试UPX压缩的notepad程序</h4><p>整个解压缩过程由无数循环组成，注意遇到循环（Loop）时，先了解作用再跳出。</p>
+<p>可以利用Ctrl+F8的自动步过来找到循环（按F7即可停止），然后利用F2+F9的方法跳过循环</p>
+<h5 id="快速查找UPX-OEP的方法"><a href="#快速查找UPX-OEP的方法" class="headerlink" title="快速查找UPX OEP的方法"></a>快速查找UPX OEP的方法</h5><p>1、UPX的特征之一是其EP代码包含在PUSHAD/POPAD指令之间，跳转到OEP代码的JMP指令紧接着出现在POPAD指令之后，所以在JMP指令处设置好断点即可找到OEP</p>
+<p>2、硬件断点</p>
+<h2 id="基址重定位表"><a href="#基址重定位表" class="headerlink" title="基址重定位表"></a>基址重定位表</h2><p>PE文件在重定位过程中会用到基址重定位表（Base Relocation Table）</p>
+<h3 id="PE重定位"><a href="#PE重定位" class="headerlink" title="PE重定位"></a>PE重定位</h3><p>向进程的虚拟内存加载PE文件时，文件会被加载到PE头的ImageBase所指的地址处，若加载的事DLL（SYS）文件，且在ImageBase位置处已经加载了其他DLL（SYS）文件，那么PE装载器就会将其加载到其他未被占用的空间，被加载到其他地址时发生的一系列的处理行为就叫做PE重定位。</p>
+<p>tips：用SDK或VC创建PE文件时，EXE默认ImageBase为00400000，DLL默认ImageBase为10000000，用DDK创建的SYS文件默认的ImageBase为10000。</p>
+<h3 id="PE重定位时执行的操作"><a href="#PE重定位时执行的操作" class="headerlink" title="PE重定位时执行的操作"></a>PE重定位时执行的操作</h3><p>在Windows7的ASLR机制作用下，程序每次加载到内存中的基址都不同，使硬编码在程序中的内存地址随当前加载地址变化而改变的处理过程就是PE重定位。</p>
+<p>无法加载到ImageBase地址时，若未经过PE重定位，应用程序就不能正常运行（因发生“内存地址引用错误”，程序异常终止）</p>
+<h3 id="PE重定位操作原理"><a href="#PE重定位操作原理" class="headerlink" title="PE重定位操作原理"></a>PE重定位操作原理</h3><p>基本操作原理</p>
+<p>1、在应用程序中查找硬编码的地址位置</p>
+<p>2、读取值后，减去ImageBase（VA-&gt;RVA）</p>
+<p>3、加上实际加载地址（RVA-&gt;VA）</p>
+<p>最关键的是查找硬编码地址的位置，过程中会用到PE文件内部的Relocation Table（重定位表），它是记录硬编码地址偏移（位置）的列表（重定位表是在PE文件构建过程（编译/链接）中提供的）。</p>
+<p>基址重定位表位于PE头的DataDirectory数组的第六个元素。</p>
+<p>IMAGE_NT_HEADERS\IMAGE_OPTIONAL_HEADER\IMAGE_DATA_DIRECTORT[5]<img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/PE-21.png"  alt=""></p>
+<p>基址重定位表是IMAGE_BASE_RELOCATION结构体数组，第一个成员为VirtualAddress，是一个基准地址，实际是RVA值。第二个成员为SizeOfBlock，指重定位块的大小。最后一项TypeOffset数组并不是结构体成员，而是以注释形式存在的，表示该结构体之下会出现WORD类型的数组，并且该数组元素的值就是硬编码在程序中的地址偏移。</p>
+<p>TypeOffset成员高四位用作Type，PE文件中常用的值为3（IMAGE_REL_BASED_HIGHLOW），64位的PE+文件中常见值为A（IMAGE_REL_BASED_DIR64）。</p>
+<p>低十二位是真正的位移，该值是基于Virtual Address的偏移，所以程序中硬编码地址的偏移换算等式为：    Virtual Address + Offset = RVA</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">0bs3rver</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/04/29/PE%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/">http://yoursite.com/2020/04/29/PE%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">0bs3rver的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RE/">RE</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/04/29/DLL%E6%B3%A8%E5%85%A5/"><img class="prev_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">DLL注入</div></div></a></div><div class="next-post pull_right"><a href="/2020/04/22/%E5%AE%89%E8%A3%85ubuntu16%E8%99%9A%E6%8B%9F%E6%9C%BA/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安装ubuntu16虚拟机</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/04/29/DLL注入/" title="DLL注入"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-29</div><div class="relatedPosts_title">DLL注入</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 0bs3rver</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
