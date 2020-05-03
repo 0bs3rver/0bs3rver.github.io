@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Microsoft-Word的使用（一） | 0bs3rver的小屋</title><meta name="description" content="Microsoft-Word的使用（一）"><meta name="keywords" content="办公"><meta name="author" content="0bs3rver"><meta name="copyright" content="0bs3rver"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Microsoft-Word的使用（一）"><meta name="twitter:description" content="Microsoft-Word的使用（一）"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Microsoft-Word的使用（一）"><meta property="og:url" content="http://yoursite.com/2020/05/02/Microsoft-Word%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/"><meta property="og:site_name" content="0bs3rver的小屋"><meta property="og:description" content="Microsoft-Word的使用（一）"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/05/02/Microsoft-Word%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/"><link rel="next" title="DLL注入" href="http://yoursite.com/2020/04/29/DLL%E6%B3%A8%E5%85%A5/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">8</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#快捷键"><span class="toc-number">1.</span> <span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换"><span class="toc-number">2.</span> <span class="toc-text">替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样式"><span class="toc-number">3.</span> <span class="toc-text">样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排版"><span class="toc-number">4.</span> <span class="toc-text">排版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">4.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节"><span class="toc-number">4.2.</span> <span class="toc-text">节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#页眉和页脚"><span class="toc-number">4.3.</span> <span class="toc-text">页眉和页脚</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入"><span class="toc-number">5.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#格式"><span class="toc-number">6.</span> <span class="toc-text">格式</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">0bs3rver的小屋</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Microsoft-Word的使用（一）</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-02 10:08:34"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-02</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-03 11:54:45"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-03</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%8A%9E%E5%85%AC/">办公</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p>最近在学办公软件的操作，感觉对日常生活还挺有帮助的，属于那种受用终身的技能，毕竟学校琐事实在是太多了…</p>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><ol>
+<li>想要快速在文档某个地方进行输入，双击鼠标即可，同时可以避免影响后文的尴尬。</li>
+<li>快速调整字号，放大为cmd+]  (mac环境下，同时需要注意此时需为英文输入法) 。</li>
+<li>shift + F3 可以进行全大写/全小写/句首大写的切换。</li>
+<li>输入®的快捷方式是输入(r)，同理可得©，原理是这些东西被设定了自动更正，同时，如果需要重复输入某复杂名称，也可以自己设定自动替换。</li>
+<li>设定编号后，按回车会自动到下一编号，因为回车是换段的意思，想要继续在该编号中写入文字，shift + enter即可，这时是换行的意思。</li>
+</ol>
+<h2 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h2><ol>
+<li>替换也可以批量替换字体格式等，只需要设置一下即可。</li>
+<li>批量替换标题，可以查找标题中都有的文字，然后选择替换为样式-标题一，这样可以方便的替换，同时在引用里导出自动目录也可以方便的进行定位。</li>
+<li>快速整理文档可以首先替换删除掉所有空格，再可将两个段落标记替换为一个段落标记（可能需要多次替换）。</li>
+<li>用通配符进行替换：<br>eg：将所有手机号的中间四位替换为<em>，可以首先选择使用通配符，然后将(1??)(????)(???)替换为\1***</em>\3即可。</li>
+</ol>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><ol>
+<li>双击格式刷可以实现例如标题快速修改格式。</li>
+<li>使用样式可以快捷的统一修改格式。</li>
+<li>可以使用替换将特定的文字/拥有特定字体的文字统一转换为样式。</li>
+<li>可以选择文本，然后在样式窗格中点击选择（mac中为全选），即可将类似的文字全部选择，一次性进行修改。</li>
+<li>设置标题样式后可以使用导航窗格实现迅速定位与快速排版。</li>
+</ol>
+<h2 id="排版"><a href="#排版" class="headerlink" title="排版"></a>排版</h2><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li>可以使用引用-目录里的自动目录快速生成，并可以自动定位。</li>
+<li>在目录里可以方便的进行修改标题字体。</li>
+<li>想要另起一页可以使用插入-分页功能进行解决。</li>
+</ol>
+<h3 id="节"><a href="#节" class="headerlink" title="节"></a>节</h3><p>节是word中最大的单位。在没有进行分节的时候，整篇文档就是一节。（字、行、段、页、节）</p>
+<ol>
+<li>在布局-分隔符中可以进行分节。</li>
+</ol>
+<h3 id="页眉和页脚"><a href="#页眉和页脚" class="headerlink" title="页眉和页脚"></a>页眉和页脚</h3><ol>
+<li>使用分节可以方便的调整页码，在页脚的设定中，关闭“链接到上一节”，即可在需要的地方新设置页码。在页码-设定页码格式中设置起始页码为1，然后再页码-页码中设定格式即可看到页码。关闭页眉和页脚后，在目录里右键-更新域，即可更新页码。</li>
+<li>设置页眉方法也类似，取消掉链接后设置即可。</li>
+<li>标题前面的黑点可以通过取消段落标记让其消失。</li>
+<li>页眉的横线可以通过选择页眉的段落标记，将开始中的边框设置成无边框即可。<img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/word-1.png"  alt=""></li>
+<li>想要删除分页和分节，可以通过点击开始功能区内的显示/隐藏编辑标记<img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/word-2.png"  alt=""><br>然后把光标放到前面，删除即可（mac下需要fn+delete）</li>
+<li>把每一章都进行分节，可以方便的设置页眉为每一章的标题（即标题一样式），选择页眉和页脚-域-StyleRef-标题一，确定即可。</li>
+<li>可以选择首页不同/奇偶数页不同对页眉和页脚进行进一步的设置。</li>
+</ol>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><ol>
+<li>可以通过插入封面图片快速让文档美观。</li>
+<li>在页眉中也可以选择插入图片来设置背景，插入后在位置中选择“衬于文字下方”，再拉伸调整即可，同时还可以设置图片的颜色，用于搭配整体色调。</li>
+</ol>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><ol>
+<li>公文标准是上边距为3.7厘米，下边距为3.5厘米，左右边距为2.6厘米。</li>
+<li>公文行间距是固定值28磅和1.5倍行距，其它的非公文文档可以设置26磅。</li>
+<li>一定要边输入边设置样式与分节</li>
+<li>单面打印与双面打印<br><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/word-3.jpeg"  alt=""></li>
+<li>水印可以通过设计-水印来进行设置，也可以通过页眉进行设置（水印的实质是页眉中的“艺术字”）</li>
+<li>通过全选文档，再点击开始功能区-清除格式（左上角的橡皮擦）即可方便的统一规划格式。</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">0bs3rver</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/05/02/Microsoft-Word%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/">http://yoursite.com/2020/05/02/Microsoft-Word%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">0bs3rver的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8A%9E%E5%85%AC/">办公</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/04/29/DLL%E6%B3%A8%E5%85%A5/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DLL注入</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 0bs3rver</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
