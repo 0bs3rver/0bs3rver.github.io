@@ -1,0 +1,409 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>程序员的自我修养读书笔记-第三章-目标文件里有什么 | 0bs3rver的小屋</title><meta name="description" content="程序员的自我修养读书笔记-第三章-目标文件里有什么"><meta name="keywords" content="程序员的自我修养,读书笔记"><meta name="author" content="0bs3rver"><meta name="copyright" content="0bs3rver"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="程序员的自我修养读书笔记-第三章-目标文件里有什么"><meta name="twitter:description" content="程序员的自我修养读书笔记-第三章-目标文件里有什么"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="程序员的自我修养读书笔记-第三章-目标文件里有什么"><meta property="og:url" content="http://yoursite.com/2020/12/19/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88/"><meta property="og:site_name" content="0bs3rver的小屋"><meta property="og:description" content="程序员的自我修养读书笔记-第三章-目标文件里有什么"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/12/19/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88/"><link rel="next" title="二进制常用工具与技术的执行过程与原理" href="http://yoursite.com/2020/12/10/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%8E%9F%E7%90%86/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">35</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3-1-目标文件的格式"><span class="toc-number">1.</span> <span class="toc-text">3.1 目标文件的格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-2-目标文件是什么样的"><span class="toc-number">2.</span> <span class="toc-text">3.2 目标文件是什么样的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-3-挖掘SimpleSection-o"><span class="toc-number">3.</span> <span class="toc-text">3.3 挖掘SimpleSection.o</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码段"><span class="toc-number">3.1.</span> <span class="toc-text">代码段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据段和只读数据段"><span class="toc-number">3.2.</span> <span class="toc-text">数据段和只读数据段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BSS段"><span class="toc-number">3.3.</span> <span class="toc-text">BSS段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量存放位置"><span class="toc-number">3.3.1.</span> <span class="toc-text">变量存放位置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他段"><span class="toc-number">3.4.</span> <span class="toc-text">其他段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何把一个二进制文件作为目标文件中的一个段？"><span class="toc-number">3.4.1.</span> <span class="toc-text">如何把一个二进制文件作为目标文件中的一个段？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义段"><span class="toc-number">3.4.2.</span> <span class="toc-text">自定义段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-4-ELF文件结构描述"><span class="toc-number">4.</span> <span class="toc-text">3.4 ELF文件结构描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件头"><span class="toc-number">4.1.</span> <span class="toc-text">文件头</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#elf魔数"><span class="toc-number">4.1.1.</span> <span class="toc-text">elf魔数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件类型"><span class="toc-number">4.1.2.</span> <span class="toc-text">文件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#机器类型"><span class="toc-number">4.1.3.</span> <span class="toc-text">机器类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#段表"><span class="toc-number">4.2.</span> <span class="toc-text">段表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重定位表"><span class="toc-number">4.3.</span> <span class="toc-text">重定位表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串表"><span class="toc-number">4.4.</span> <span class="toc-text">字符串表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-5-链接的接口——符号"><span class="toc-number">5.</span> <span class="toc-text">3.5 链接的接口——符号</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#elf符号表结构"><span class="toc-number">5.1.</span> <span class="toc-text">elf符号表结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊符号"><span class="toc-number">5.2.</span> <span class="toc-text">特殊符号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#符号修饰与函数签名"><span class="toc-number">5.3.</span> <span class="toc-text">符号修饰与函数签名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-符号修饰"><span class="toc-number">5.3.1.</span> <span class="toc-text">C++符号修饰</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#extern-“C”"><span class="toc-number">5.4.</span> <span class="toc-text">extern “C”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弱符号与强符号"><span class="toc-number">5.5.</span> <span class="toc-text">弱符号与强符号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#弱引用和强引用"><span class="toc-number">5.5.1.</span> <span class="toc-text">弱引用和强引用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-6-调试信息"><span class="toc-number">6.</span> <span class="toc-text">3.6 调试信息</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">0bs3rver的小屋</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">程序员的自我修养读书笔记-第三章-目标文件里有什么</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-12-19 23:28:36"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-12-19</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-12-19 23:29:05"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-12-19</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p>#第三章 目标文件里有什么</p>
+<p>编译器编译源代码后生成的文件叫做<strong>目标文件</strong>，从结构上讲，它是已经编译后的可执行文件格式，只是还没有经过链接的过程。</p>
+<h1 id="3-1-目标文件的格式"><a href="#3-1-目标文件的格式" class="headerlink" title="3.1 目标文件的格式"></a>3.1 目标文件的格式</h1><p>现在PC平台流行的<strong>可执行文件格式（Executable）</strong>主要是windows下的PE（Portable Executable）和linux下的ELF（Executable Linkable Format），它们都是COFF（Common file format）格式的变种。目标文件就是源代码编译后但未进行链接的那些中间文件（windows的.obj和linux下的.o）。</p>
+<p>除了可执行文件，<strong>动态链接库（DLL，Dynamic Linking Library）</strong>（windows下的.dll和linux下的.so）和<strong>静态链接库（Static Linking Library）</strong>（windows下的.lib和linux的.a）文件都按照可执行文件格式存储。</p>
+<p>elf文件标准里把系统中采用elf格式的文件归为如下所示的4类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ELF文件类型</th>
+<th align="center">说明</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">可重定位文件（Relocatable File）</td>
+<td align="center">这类文件包含了代码和数据，可以用来链接成可执行文件或共享目标文件，静态链接库也可以归为这一类</td>
+<td align="center">linux的.o<br />windows的.obj</td>
+</tr>
+<tr>
+<td align="center">可执行文件（Executable File）</td>
+<td align="center">这类文件包含了可以直接执行的程序，它的代表就是elf可执行文件，它们一般都没有扩展名</td>
+<td align="center">比如/bin/sh文件<br />windows的.exe</td>
+</tr>
+<tr>
+<td align="center">共享目标文件（Shared Object File）</td>
+<td align="center">这种文件包含了代码和数据，一种是链接器可以使用这种文件和其他的可重定位文件和共享目标文件链接，产生新的目标文件；第二种是动态链接器可以将几个这种共享目标文件与可执行文件结合，作为进程映象的一部分来运行</td>
+<td align="center">linux的.so，如/lib/glibc-2.5.so<br />windows的DLL</td>
+</tr>
+<tr>
+<td align="center">核心转储文件（Core Dump File）</td>
+<td align="center">当进程意外终止时，系统可以将该进程的地址空间的内容及终止时的一些其他信息转储到核心转储文件</td>
+<td align="center">linux下的core dump</td>
+</tr>
+</tbody></table>
+<h1 id="3-2-目标文件是什么样的"><a href="#3-2-目标文件是什么样的" class="headerlink" title="3.2 目标文件是什么样的"></a>3.2 目标文件是什么样的</h1><p>目标文件中除了有编译后的机器指令代码、数据，还包含链接时需要的一些信息，比如符号表、调试信息、字符串等。一般目标文件将这些信息按不同的属性，以<strong>节（Section）</strong>的形式存储，有时候也叫<strong>段（segment）</strong>。</p>
+<p>节和段唯一的 区别是中elf的链接视图和装载视图的时候，本书中默认统一称为“段”。</p>
+<p>程序源代码编译后的机器指令经常放在<strong>代码段（Code Section）</strong>里，代码段常见的名字有”.code”或”.text”；全局变量和局部静态变量数据经常放在<strong>数据段（Data Section）</strong>里，数据段的一般名字叫”.data”。</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-3-1.png"  alt=""></p>
+<p>假设上图中格式是elf，可以看到elf文件的开头是一个”文件头”，它描述了整个文件的文件属性，包括文件是否可执行、是静态链接还是动态链接及入口地址（如果是可执行文件）、目标硬件、目标操作系统等信息，文件头还有一个用来描述文件中各个段的数组—-<strong>段表（Section Table）</strong>。</p>
+<ul>
+<li>一般c语言编译后执行语句都编译成机器代码，保存在.text段</li>
+<li>已初始化的全局变量和局部静态变量都保存在.data段</li>
+<li>未初始化的全局变量和局部静态变量一般放在.bss段<br><strong>bss段只是为未初始化的全局变量和局部静态变量预留位置</strong>，并没有内容，在文件中也不占据空间</li>
+</ul>
+<p><strong>总体来说，程序源代码被编译后主要分成两种段：程序指令和程序数据。代码段属于程序指令，而数据段和.bss段属于程序数据。</strong></p>
+<p>数据和指令分段的好处主要有：</p>
+<ul>
+<li>可以方便的设置数据和指令的权限为可读写和只读，以防止指令被有意或无意地改写</li>
+<li>现代cpu的缓存一般都被设计成数据缓存和指令缓存分离，程序的指令和数据被分开有利于cpu的缓存命中率提高</li>
+<li>当系统中运行着多个该程序的副本时，内存中只需要保存一份该程序的指令部分，可以省下大量空间（除了指令，对于所有的只读数据也都一样）</li>
+</ul>
+<h1 id="3-3-挖掘SimpleSection-o"><a href="#3-3-挖掘SimpleSection-o" class="headerlink" title="3.3 挖掘SimpleSection.o"></a>3.3 挖掘SimpleSection.o</h1><p>以下列代码为例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SimpleSection.c</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* format, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> global_init_var = <span class="number">84</span>;</span><br><span class="line"><span class="keyword">int</span> global_uninit_var;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span> <span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> static_var = <span class="number">85</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> static_var2;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    </span><br><span class="line">    func1( static_var + static_var2 + a + b );</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>  a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如不加说明，以下分析的都是32位的elf文件格式</p>
+</blockquote>
+<p>因为我使用的是64位的系统，所以想要将其编译成32位程序需要加上 -m32 参数，同时由于gcc版本、机器平台等因素的差异，我得出来的结果可能和书中的例图略有不同</p>
+<p>我们使用gcc来编译这个文件（参数 -c 表示只编译不链接）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -m32 -c SimpleSection.c</span><br><span class="line">$ objdump -h SimpleSection.o</span><br><span class="line"></span><br><span class="line">SimpleSection.o:     file format elf32-i386</span><br><span class="line"></span><br><span class="line">Sections:</span><br><span class="line">Idx Name          Size      VMA       LMA       File off  Algn</span><br><span class="line">  0 .text         00000062  00000000  00000000  00000034  2**0</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE</span><br><span class="line">  1 .data         00000008  00000000  00000000  00000098  2**2</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, DATA</span><br><span class="line">  2 .bss          00000004  00000000  00000000  000000a0  2**2</span><br><span class="line">                  ALLOC</span><br><span class="line">  3 .rodata       00000004  00000000  00000000  000000a0  2**0</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, READONLY, DATA</span><br><span class="line">  4 .comment      00000036  00000000  00000000  000000a4  2**0</span><br><span class="line">                  CONTENTS, READONLY</span><br><span class="line">  5 .note.GNU-stack 00000000  00000000  00000000  000000da  2**0</span><br><span class="line">                  CONTENTS, READONLY</span><br><span class="line">  6 .eh_frame     00000064  00000000  00000000  000000dc  2**2</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA</span><br></pre></td></tr></table></figure>
+
+<p>参数 -h 就是把elf文件的各个段的基本信息打印出来。我们也可以使用”objdump -x”打印出更多信息。</p>
+<p>从上面的结果来看，SimpleSection.o中除了最基本的代码段、数据段和BSS段以外，还有三个段分别是<strong>只读数据段（.rodata）</strong>、<strong>注释信息段（.comment）</strong>和<strong>堆栈提示段（.note.GNU-stack）</strong>。</p>
+<blockquote>
+<p>书中并未出现.eh_frame段，所以下面对elf文件的解读也会忽略这个内容，我查找到的结果如下：</p>
+<p>当gcc生成处理异常的某些代码时，它将生成可以描述如何展开堆栈的表。这些表在.eh_frame部分中找到。eh = exception handling。.eh_frame包含异常展开和源语言信息，其中，每个条目均由单个CFI表示。</p>
+<p>来源：<a href="https://stackoverrun.com/cn/q/6504461" target="_blank" rel="noopener">https://stackoverrun.com/cn/q/6504461</a></p>
+</blockquote>
+<p>我们首先看看几个重要的段的属性，最容易理解的是段的长度（Size）和段所在的位置（File Offset）</p>
+<blockquote>
+<p>LMA： 加载地址，如加载到RAM中等，在嵌入式中，有可能是在ROM中（这时LMA!=VMA）<br>VMA： 虚拟地址，就是程序运行时的地址，一般就是内存地址，如要把ROM中的数据加载到RAM中运行。</p>
+<p>Algn：对齐</p>
+</blockquote>
+<p>第二行中的”CONTENTS”、”ALLOC”等表示段的各种属性，”CONTENTS”表示该段在文件中存在，.note.GNU-stack比较奇怪，我们暂且忽略</p>
+<p>结构如图</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-3-2.png"  alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ size -A SimpleSection.o</span><br><span class="line">SimpleSection.o  :</span><br><span class="line">section           size   addr</span><br><span class="line">.text               98      0</span><br><span class="line">.data                8      0</span><br><span class="line">.bss                 4      0</span><br><span class="line">.rodata              4      0</span><br><span class="line">.comment            54      0</span><br><span class="line">.note.GNU-stack      0      0</span><br><span class="line">.eh_frame          100      0</span><br><span class="line">Total              268</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果直接用size来查看大小，.text长度会过大。因为size默认是运行在”Berkeley compatibility mode”下。在这种模式下，会将不可执行的拥有”ALLOC”属性的只读段归到.text段下，很典型的就是.rodata段。如果你使用”size -A obj.o”，那么size会运行在”System V compatibility mode”，此时，用objdump -h和size显示的.text段大小就差不多了。</p>
+</blockquote>
+<p>我们来看看这些段都包含了什么内容</p>
+<h2 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h2><p>objdump的 -s 参数可以将所有段段内容以十六进制的方式打印出来，-d 参数可以将所有包含指令的段反汇编，以下为打印出的内容（省略号表示可以忽略的无关内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -s -d SimpleSection.o</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Contents of section .text:</span><br><span class="line"> 0000 5589e583 ec0883ec 08ff7508 68000000  U.........u.h...</span><br><span class="line"> 0010 00e8fcff ffff83c4 1090c9c3 8d4c2404  .............L$.</span><br><span class="line"> 0020 83e4f0ff 71fc5589 e55183ec 14c745f0  ....q.U..Q....E.</span><br><span class="line"> 0030 01000000 8b150400 0000a100 00000001  ................</span><br><span class="line"> 0040 c28b45f0 01c28b45 f401d083 ec0c50e8  ..E....E......P.</span><br><span class="line"> 0050 fcffffff 83c4108b 45f08b4d fcc98d61  ........E..M...a</span><br><span class="line"> 0060 fcc3                                 ..              </span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">00000000 &lt;func1&gt;:</span><br><span class="line">   0:	55                   	push   %ebp</span><br><span class="line">   1:	89 e5                	mov    %esp,%ebp</span><br><span class="line">   3:	83 ec 08             	sub    $0x8,%esp</span><br><span class="line">   6:	83 ec 08             	sub    $0x8,%esp</span><br><span class="line">   9:	ff 75 08             	pushl  0x8(%ebp)</span><br><span class="line">   c:	68 00 00 00 00       	push   $0x0</span><br><span class="line">  11:	e8 fc ff ff ff       	call   12 &lt;func1+0x12&gt;</span><br><span class="line">  16:	83 c4 10             	add    $0x10,%esp</span><br><span class="line">  19:	90                   	nop</span><br><span class="line">  1a:	c9                   	leave  </span><br><span class="line">  1b:	c3                   	ret    </span><br><span class="line"></span><br><span class="line">0000001c &lt;main&gt;:</span><br><span class="line">  1c:	8d 4c 24 04          	lea    0x4(%esp),%ecx</span><br><span class="line">  20:	83 e4 f0             	and    $0xfffffff0,%esp</span><br><span class="line">  23:	ff 71 fc             	pushl  -0x4(%ecx)</span><br><span class="line">  26:	55                   	push   %ebp</span><br><span class="line">  27:	89 e5                	mov    %esp,%ebp</span><br><span class="line">  29:	51                   	push   %ecx</span><br><span class="line">  2a:	83 ec 14             	sub    $0x14,%esp</span><br><span class="line">  2d:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)</span><br><span class="line">  34:	8b 15 04 00 00 00    	mov    0x4,%edx</span><br><span class="line">  3a:	a1 00 00 00 00       	mov    0x0,%eax</span><br><span class="line">  3f:	01 c2                	add    %eax,%edx</span><br><span class="line">  41:	8b 45 f0             	mov    -0x10(%ebp),%eax</span><br><span class="line">  44:	01 c2                	add    %eax,%edx</span><br><span class="line">  46:	8b 45 f4             	mov    -0xc(%ebp),%eax</span><br><span class="line">  49:	01 d0                	add    %edx,%eax</span><br><span class="line">  4b:	83 ec 0c             	sub    $0xc,%esp</span><br><span class="line">  4e:	50                   	push   %eax</span><br><span class="line">  4f:	e8 fc ff ff ff       	call   50 &lt;main+0x34&gt;</span><br><span class="line">  54:	83 c4 10             	add    $0x10,%esp</span><br><span class="line">  57:	8b 45 f0             	mov    -0x10(%ebp),%eax</span><br><span class="line">  5a:	8b 4d fc             	mov    -0x4(%ebp),%ecx</span><br><span class="line">  5d:	c9                   	leave  </span><br><span class="line">  5e:	8d 61 fc             	lea    -0x4(%ecx),%esp</span><br><span class="line">  61:	c3                   	ret</span><br></pre></td></tr></table></figure>
+
+<p>“Contents of section .text”就是.text的数据以十六进制方式打印出来的内容，最左边是偏移量，中间四列是十六进制内容，最右边是.text段的ASCII码形式，对比下面的反汇编结果可以很明显的看出.text的内容正是SimpleSection.c里两个函数func1()和main()的指令</p>
+<h2 id="数据段和只读数据段"><a href="#数据段和只读数据段" class="headerlink" title="数据段和只读数据段"></a>数据段和只读数据段</h2><p>.data段保存的是那些已经<strong>初始化了的全局静态变量和局部静态变量</strong>。前面的代码中共有两个这样的变量：global_init_varabal和static_var，每个四个字节，所以”.data”段的大小为八个字节</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -s -d -x SimpleSection.o</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Sections:</span><br><span class="line">Idx Name          Size      VMA       LMA       File off  Algn</span><br><span class="line">  1 .data         00000008  00000000  00000000  00000098  2**2</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, DATA</span><br><span class="line">  3 .rodata       00000004  00000000  00000000  000000a0  2**0</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, READONLY, DATA</span><br><span class="line">              </span><br><span class="line">Contents of section .data:</span><br><span class="line"> 0000 54000000 55000000                    T...U...        </span><br><span class="line">Contents of section .rodata:</span><br><span class="line"> 0000 25640a00                             %d..            </span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>“.rodata”段存放的是只读数据，一般是程序里的只读变量（如const修饰的变量）和字符串常量。我们在调用”printf”的时候，用到了一个字符串常量”%d\n”，它是一种只读数据，所以它被放到了”.rodata”段</p>
+<p>在.data段的前四个字节，从低到高分别是0x54，0x00，0x00，0x00，原因是CPU的<strong>字节序（Byte Order）</strong>。即我们所说的大端序和小端序。</p>
+<h2 id="BSS段"><a href="#BSS段" class="headerlink" title="BSS段"></a>BSS段</h2><p>.bss段存放的是<strong>未初始化的全局变量和局部静态变量</strong>，如上述代码中的 global_uninit_var 和 static_var2 。更准确的说法是.bss段为它们预留了空间，但是我们可以看到.bss段的大小只有4个字节，这与应有的八个字节不符。</p>
+<p>其实我们可以通过<strong>符号表（Symbol Table）</strong>（后面章节介绍）看到，只有static_var2被存放在了.bss段，而global_uninit_var没有被存放在任何段，只是一个未定义的”COMMON”符号。这和不同语言、不同编译器相关，有些编译器会将<strong>全局的未初始化变量</strong>存放在目标文件.bss段，有些则不存放，只是预留一个<strong>未定义的全局变量符号</strong>，等到最终链接成可执行文件的时候再在.bss段分配空间。</p>
+<p><strong>编译单元内部可见的静态变量</strong>（比如给global_uninit_var 加上 static 修饰）的确是存放在.bcc段的</p>
+<blockquote>
+<p>当一个c或cpp文件在<em>编译</em>时，预处理器首先递归包含头文件，形成一个含有所有必要信息的单个源文件，这个源文件就是一个<strong>编译单元</strong>。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -s -d -x SimpleSection.o</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Sections:</span><br><span class="line">Idx Name          Size      VMA       LMA       File off  Algn</span><br><span class="line">  2 .bss          00000004  00000000  00000000  000000a0  2**2</span><br><span class="line">                  ALLOC</span><br><span class="line">                  </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量存放位置"><a href="#变量存放位置" class="headerlink" title="变量存放位置"></a>变量存放位置</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> x1 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> x2 = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>x1会被存放在.bss中，x2会被放在.data中，因为x1为0，可以认为是未初始化的，所以被优化掉了可以放在.bss，这样可以节省磁盘空间。</p>
+<h2 id="其他段"><a href="#其他段" class="headerlink" title="其他段"></a>其他段</h2><p>elf中也可能包括其他段，这里放一个书中的图</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-3-3.png"  alt=""></p>
+<p>应用程序也可以自定义段，但是需要注意的是不能以”.”作为前缀，否则容易和系统保留段名冲突。</p>
+<h3 id="如何把一个二进制文件作为目标文件中的一个段？"><a href="#如何把一个二进制文件作为目标文件中的一个段？" class="headerlink" title="如何把一个二进制文件作为目标文件中的一个段？"></a>如何把一个二进制文件作为目标文件中的一个段？</h3><p>可以使用objcopy工具，例如我们有一个图片文件”image.png”，大小为0x3f81字节：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ objcopy -I binary -O elf32-i386 -B i386 image.png test.o</span><br><span class="line">$ objdump -ht test.o</span><br><span class="line"></span><br><span class="line">test.o:     file format elf32-i386</span><br><span class="line"></span><br><span class="line">Sections:</span><br><span class="line">Idx Name          Size      VMA       LMA       File off  Algn</span><br><span class="line">  0 .data         00003f81  00000000  00000000  00000034  2**0</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, DATA</span><br><span class="line">SYMBOL TABLE:</span><br><span class="line">00000000 l    d  .data	00000000 .data</span><br><span class="line">00000000 g       .data	00000000 _binary_image_png_start</span><br><span class="line">00003f81 g       .data	00000000 _binary_image_png_end</span><br><span class="line">00003f81 g       *ABS*	00000000 _binary_image_png_size</span><br></pre></td></tr></table></figure>
+
+<p>符号”_binary_image_jpg_start”、”_binary_image_png_end”、”_binary_image_png_size” 分别表示该图片文件在内存中的起始地址、结束地址和大小，我们可以在程序里面直接声明并使用它们</p>
+<h3 id="自定义段"><a href="#自定义段" class="headerlink" title="自定义段"></a>自定义段</h3><p>正常情况下，gcc编译出来的文件中，代码会被放到”.text”段，全局变量和静态变量会被放到”.data”和”.bss”段。</p>
+<p>但有些情况我们可能希望变量或部分代码放到我们指定的段里面，gcc提供了一个扩展机制，使得程序员可以指定变量所处的段：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__attribute__((section(<span class="string">"FOO"</span>))) <span class="keyword">int</span> global = <span class="number">42</span>;</span><br><span class="line"></span><br><span class="line">__attribute__((section(<span class="string">"BAR"</span>))) <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在全局变量或函数之前加上”<em>_attribute_\</em>((section(“BAR”)))” 属性就可以把相应的变量或函数放到以”name”作为段名的段中</p>
+<h1 id="3-4-ELF文件结构描述"><a href="#3-4-ELF文件结构描述" class="headerlink" title="3.4 ELF文件结构描述"></a>3.4 ELF文件结构描述</h1><p>我们把elf最重要的结构提取出来，就形成了如图所示的elf文件基本结构图</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB-3-4.png"  alt=""></p>
+<p>elf目标文件格式的最前部是<strong>ELF文件头（ELF Header）</strong>，它包含了描述整个文件的基本属性。ELF文件中与段有关的重要结构就是<strong>段表（Section Header Table）</strong>，该表描述了ELF文件包含的所有段的信息。</p>
+<h2 id="文件头"><a href="#文件头" class="headerlink" title="文件头"></a>文件头</h2><p>我们可以通过readelf命令来详细查看elf文件</p>
+<p>-h 参数即显示elf文件头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -h SimpleSection.o</span><br><span class="line">ELF Header:</span><br><span class="line">  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 </span><br><span class="line">  Class:                             ELF32</span><br><span class="line">  Data:                              2&#39;s complement, little endian</span><br><span class="line">  Version:                           1 (current)</span><br><span class="line">  OS&#x2F;ABI:                            UNIX - System V</span><br><span class="line">  ABI Version:                       0</span><br><span class="line">  Type:                              REL (Relocatable file)</span><br><span class="line">  Machine:                           Intel 80386</span><br><span class="line">  Version:                           0x1</span><br><span class="line">  Entry point address:               0x0</span><br><span class="line">  Start of program headers:          0 (bytes into file)</span><br><span class="line">  Start of section headers:          832 (bytes into file)</span><br><span class="line">  Flags:                             0x0</span><br><span class="line">  Size of this header:               52 (bytes)</span><br><span class="line">  Size of program headers:           0 (bytes)</span><br><span class="line">  Number of program headers:         0</span><br><span class="line">  Size of section headers:           40 (bytes)</span><br><span class="line">  Number of section headers:         13</span><br><span class="line">  Section header string table index: 10</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，elf的文件头中定义了<strong>ELF魔数、文件机器字节长度、数据存储方式、版本、运行平台、ABI版本、ELF重定位类型、硬件平台、硬件平台版本、入口地址、程序头入口和长度、段表的位置和长度</strong>及<strong>段的数量</strong>等。</p>
+<p>elf文件头结构及相关常数被定义在”usr/include/elf.h”里。</p>
+<p>书上其实有不少介绍，但我觉得暂时没啥用，估计也没人看，在书的p70。</p>
+<h3 id="elf魔数"><a href="#elf魔数" class="headerlink" title="elf魔数"></a>elf魔数</h3><p>最开始的4个字节是所有ELF文件都必须相同的标识码，分别为0x7f、0x45、0x4c、0x46，第一个字节对应ASCII字符里面的DEL控制符，后面3个字节是ELF这三个字母的ASCII码，所谓魔数，也就相当于大家约定俗成的惯例，即用这几个字节来确认文件的类型。</p>
+<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>系统并不是通过文件的扩展名，而是通过e_type常量来判断elf的真正文件类型，相关的常量以”ET_”开头</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ET_REL</td>
+<td>1</td>
+<td>可重定位文件，一般为.o文件</td>
+</tr>
+<tr>
+<td>ET_EXEC</td>
+<td>2</td>
+<td>可执行文件</td>
+</tr>
+<tr>
+<td>ET_DYN</td>
+<td>3</td>
+<td>共享目标文件，一般为.so文件</td>
+</tr>
+</tbody></table>
+<h3 id="机器类型"><a href="#机器类型" class="headerlink" title="机器类型"></a>机器类型</h3><p>elf文件格式被设计成可以在多个平台下使用，但这并不表示同一个elf文件可以在不同的平台下使用，e_machine成员表示该elf文件的平台属性，相关的常量以”EM_”开头</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EM_M32</td>
+<td>1</td>
+<td>AT&amp;T WE 32100</td>
+</tr>
+<tr>
+<td>EM_SPARC</td>
+<td>2</td>
+<td>SPARC</td>
+</tr>
+<tr>
+<td>EM_386</td>
+<td>3</td>
+<td>Intel x86</td>
+</tr>
+<tr>
+<td>EM_68K</td>
+<td>4</td>
+<td>Motorola 68000</td>
+</tr>
+<tr>
+<td>EM_88K</td>
+<td>5</td>
+<td>Motorola 88000</td>
+</tr>
+<tr>
+<td>EM_860</td>
+<td>6</td>
+<td>Intel 80860</td>
+</tr>
+</tbody></table>
+<h2 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h2><p><strong>段表（Section Header Table）</strong>就是保存elf文件的段的基本属性的结构</p>
+<p>我们前文中使用<code>objdump -h</code>来查看elf文件中包含的段，实际上只是看到了elf文件中关键的段，我们可以使用readelf来查看elf文件中真正的段表结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -S SimpleSection.o</span><br><span class="line">There are 13 section headers, starting at offset 0x340:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al</span><br><span class="line">  [ 0]                   NULL            00000000 000000 000000 00      0   0  0</span><br><span class="line">  [ 1] .text             PROGBITS        00000000 000034 000062 00  AX  0   0  1</span><br><span class="line">  [ 2] .rel.text         REL             00000000 0002a8 000028 08   I 11   1  4</span><br><span class="line">  [ 3] .data             PROGBITS        00000000 000098 000008 00  WA  0   0  4</span><br><span class="line">  [ 4] .bss              NOBITS          00000000 0000a0 000004 00  WA  0   0  4</span><br><span class="line">  [ 5] .rodata           PROGBITS        00000000 0000a0 000004 00   A  0   0  1</span><br><span class="line">  [ 6] .comment          PROGBITS        00000000 0000a4 000036 01  MS  0   0  1</span><br><span class="line">  [ 7] .note.GNU-stack   PROGBITS        00000000 0000da 000000 00      0   0  1</span><br><span class="line">  [ 8] .eh_frame         PROGBITS        00000000 0000dc 000064 00   A  0   0  4</span><br><span class="line">  [ 9] .rel.eh_frame     REL             00000000 0002d0 000010 08   I 11   8  4</span><br><span class="line">  [10] .shstrtab         STRTAB          00000000 0002e0 00005f 00      0   0  1</span><br><span class="line">  [11] .symtab           SYMTAB          00000000 000140 000100 10     12  11  4</span><br><span class="line">  [12] .strtab           STRTAB          00000000 000240 000066 00      0   0  1</span><br><span class="line">Key to Flags:</span><br><span class="line">  W (write), A (alloc), X (execute), M (merge), S (strings)</span><br><span class="line">  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)</span><br><span class="line">  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
+
+<p>段表实质上是一个以”Elf32_Shdr”结构体为元素的数组，每个”Elf32_Shdr”结构体对应一个段。故”Elf32_Shdr”又被称为<strong>段描述符（Section Descriptor）</strong>。</p>
+<p>Elf32_Shdr被定义在”/usr/include/elf.h”</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Section header.  */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word	sh_name;		<span class="comment">/* Section name (string tbl index) */</span></span><br><span class="line">  Elf32_Word	sh_type;		<span class="comment">/* Section type */</span></span><br><span class="line">  Elf32_Word	sh_flags;		<span class="comment">/* Section flags */</span></span><br><span class="line">  Elf32_Addr	sh_addr;		<span class="comment">/* Section virtual addr at execution */</span></span><br><span class="line">  Elf32_Off	sh_offset;		<span class="comment">/* Section file offset */</span></span><br><span class="line">  Elf32_Word	sh_size;		<span class="comment">/* Section size in bytes */</span></span><br><span class="line">  Elf32_Word	sh_link;		<span class="comment">/* Link to another section */</span></span><br><span class="line">  Elf32_Word	sh_info;		<span class="comment">/* Additional section information */</span></span><br><span class="line">  Elf32_Word	sh_addralign;		<span class="comment">/* Section alignment */</span></span><br><span class="line">  Elf32_Word	sh_entsize;		<span class="comment">/* Entry size if section holds table */</span></span><br><span class="line">&#125; Elf32_Shdr;</span><br></pre></td></tr></table></figure>
+
+<p>关于段的类型、段的标识位、段的链接信息，在书中的p77都列出了各个常量值的详细解释，这里就不多赘述了</p>
+<h2 id="重定位表"><a href="#重定位表" class="headerlink" title="重定位表"></a>重定位表</h2><p>链接器在处理目标文件时，需要对目标文件中的某些部位进行重定位，即代码段和数据段中那些对绝对地址的引用的位置，这些重定位的信息都记录在elf文件的<strong>重定位表（Relocation Table）</strong>里面。</p>
+<h2 id="字符串表"><a href="#字符串表" class="headerlink" title="字符串表"></a>字符串表</h2><p>elf文件中一般把字符串集中起来存放到一个表，然后使用字符串在表中的偏移来引用字符串。</p>
+<p>而字符串表通常有两种，普通的<strong>字符串表（String Table）</strong>和<strong>段表字符串表（Section Header String Table）</strong></p>
+<ul>
+<li>字符串表用来保存普通的字符串，比如符号的名字</li>
+<li>段表字符串用来保存段表中用到的字符串，最常见的就是段名（sh_name）</li>
+</ul>
+<h1 id="3-5-链接的接口——符号"><a href="#3-5-链接的接口——符号" class="headerlink" title="3.5 链接的接口——符号"></a>3.5 链接的接口——符号</h1><p>链接过程的本质是要把多个不同的目标文件之间相互“粘”到一起，链接中，目标文件之间相互拼合实际上是目标文件之间对地址的引用，即对函数和变量的地址的引用。例如目标文件B要用到了目标文件A中的函数”foo”，那么我们就称目标文件A<strong>定义（Define）</strong>了函数”foo”，称目标文件B<strong>引用（Reference）</strong>了目标文件A中的函数”foo”。变量也是一样，在链接中我们将函数和变量统称为<strong>符号（Symbol）</strong>，函数名和变量名就是<strong>符号名（Symbol name）</strong>。</p>
+<p>链接过程中很关键的一部分就是符号的管理，每一个目标文件都会有一个相应的<strong>符号表（Symbol Table）</strong>，这个表里面记录了目标文件中所用到的所有符号，每个定义的符号有一个对应的值，叫<strong>符号值（Symbol Value）</strong>，对于变量和函数来说，符号值就是它们的地址。</p>
+<p>我们将符号表中所有的符号进行分类：</p>
+<ul>
+<li>定义在本目标文件的全局符号，可以被其他目标文件引用。例如SimpleSection.o里面的”func1”、”main”和”global_init_var”。</li>
+<li>在本目标文件中引用的全局符号，却没有定义在本目标文件，这一般叫做<strong>外部符号（External Symbol）</strong>，也就是我们前面所讲的符号引用，比如SimpleSection.o里面的”printf”。</li>
+<li>段名，这种符号往往由编译器产生，它的值就是该段段起始地址。比如SimpleSection.o里面的”.text”、”.data”等</li>
+<li>局部符号，这类符号往往由编译器产生，它的值就是该段段起始地址。比如SimpleSection.o里面的”static_var”和”static_var2”。调试器可以使用这些符号来分析程序或崩溃时段核心转储文件。这些局部符号对于链接没有作用，链接器也往往忽略它们</li>
+<li>行号信息，即目标文件指令与源文件中代码行等对应关系，它也是可选的</li>
+</ul>
+<p>对于我们来说最需要关心的就是全局符号，其他的都是次要的，因为它们对于其他目标文件来说是“不可见”的，链接过程中也无关紧要。我们可以使用readelf、objdump、nm等工具来查看elf文件的符号表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ nm SimpleSection.o</span><br><span class="line">00000000 T func1</span><br><span class="line">00000000 D global_init_var</span><br><span class="line">00000004 C global_uninit_var</span><br><span class="line">0000001c T main</span><br><span class="line">         U printf</span><br><span class="line">00000004 d static_var.1488</span><br><span class="line">00000000 b static_var2.1489</span><br></pre></td></tr></table></figure>
+
+<h2 id="elf符号表结构"><a href="#elf符号表结构" class="headerlink" title="elf符号表结构"></a>elf符号表结构</h2><p>elf文件中的符号表往往是文件中的一个段，段名一般叫”.symtab”。符号表的结构很简单，它是一个Elf32_Sym结构（32位elf文件）的数组，每个Elf32_Sym结构对应一个符号。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Symbol table entry.  */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word	st_name;		<span class="comment">/* Symbol name (string tbl index) */</span></span><br><span class="line">  Elf32_Addr	st_value;		<span class="comment">/* Symbol value */</span></span><br><span class="line">  Elf32_Word	st_size;		<span class="comment">/* Symbol size */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span>	st_info;		<span class="comment">/* Symbol type and binding */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span>	st_other;		<span class="comment">/* Symbol visibility */</span></span><br><span class="line">  Elf32_Section	st_shndx;		<span class="comment">/* Section index */</span></span><br><span class="line">&#125; Elf32_Sym;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>符号类型和绑定信息（st_info）</strong><br>该成员低4位表示符号的类型（Symbol Type），高28位表示符号绑定信息（Symbol Binding）</li>
+<li><strong>符号所在段（st_shndx）</strong><br>如果符号定义在本目标文件中，那么这个成员表示符号所在段段在段表中的下标。如果符号不是定义在本目标文件中，或者对于有些特殊符号，这个成员的值表示符号的类型/未定义</li>
+<li><strong>符号值（st_value）</strong><br>如果这个符号是一个函数或变量的定义，那么符号的值就是这个函数或变量的地址，更具体的说有以下几种情况<ul>
+<li>目标文件中，如果是符号的定义且该符号不是”COMMON块”类型的，则st_value表示该符号值段中的偏移</li>
+<li>目标文件中，如果该符号是”COMMON块”类型的，则st_value表示该符号的对齐属性</li>
+<li>在可执行文件中，st_value表示符号的虚拟地址。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -s SimpleSection.o</span><br><span class="line"></span><br><span class="line">Symbol table &#39;.symtab&#39; contains 16 entries:</span><br><span class="line">   Num:    Value  Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND </span><br><span class="line">     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS SimpleSection.c</span><br><span class="line">     2: 00000000     0 SECTION LOCAL  DEFAULT    1 </span><br><span class="line">     3: 00000000     0 SECTION LOCAL  DEFAULT    3 </span><br><span class="line">     4: 00000000     0 SECTION LOCAL  DEFAULT    4 </span><br><span class="line">     5: 00000000     0 SECTION LOCAL  DEFAULT    5 </span><br><span class="line">     6: 00000004     4 OBJECT  LOCAL  DEFAULT    3 static_var.1488</span><br><span class="line">     7: 00000000     4 OBJECT  LOCAL  DEFAULT    4 static_var2.1489</span><br><span class="line">     8: 00000000     0 SECTION LOCAL  DEFAULT    7 </span><br><span class="line">     9: 00000000     0 SECTION LOCAL  DEFAULT    8 </span><br><span class="line">    10: 00000000     0 SECTION LOCAL  DEFAULT    6 </span><br><span class="line">    11: 00000000     4 OBJECT  GLOBAL DEFAULT    3 global_init_var</span><br><span class="line">    12: 00000004     4 OBJECT  GLOBAL DEFAULT  COM global_uninit_var</span><br><span class="line">    13: 00000000    28 FUNC    GLOBAL DEFAULT    1 func1</span><br><span class="line">    14: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND printf</span><br><span class="line">    15: 0000001c    70 FUNC    GLOBAL DEFAULT    1 main</span><br></pre></td></tr></table></figure>
+
+<p>第一列Num表示符号表数组的下标；第二列Value就是符号值，即st_value；第三列Size为符号大小，即st_size；第四列和第五咧分别为符号类型和绑定信息，即对应st_info的低4位和高28位；第六列Vis目前在C/C++语言中未使用；第七列Ndx即st_shndx，表示该符号所属的段；最后一列即符号名称</p>
+<p>第一个符号，即下标为0的符号，永远是一个未定义的符号，对于另外几个符号解释如下：</p>
+<ul>
+<li>func1和main函数都是定义在SimpleSection.c里面的，它们所在的位置都为代码段，所以Ndx为1，即SimpleSection.o里面，.text段的下标为1。它们是函数，所以类型是STT_FUNC；它们全局可见，所以是STB_GLOBAL；Size表示函数指令所占的字节数；Value表示函数相对于代码段起始位置的偏移量</li>
+<li>printf符号在SimpleSection.c里面被引用，但是没有被定义，所以它的Ndx是SHN_UNDEF</li>
+<li>global_init_var是已初始化的全局变量，它被定义在.bss段，即下标为3。</li>
+<li>global_uninit_var是未初始化的全局变量，它是一个SHN_COMMON类型的符号，它本身并没有存在BSS段。</li>
+<li>static_var.1488和static_var2.1489是两个静态变量，它们的绑定属性是STB_LOCAL，即只是编译单元内部可见。</li>
+<li>对于那些STT_SECTION类型的符号，它们表示下标为Ndx的段的段名。它们的符号名没有显示，因为它们的符号名即段名。</li>
+<li>“SimpleSection.c”这个符号表示编译单元的源文件名</li>
+</ul>
+<h2 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h2><p>当我们使用ld作为链接器来链接生产可执行文件时，它会为我们定义很多特殊的符号，这些符号并没有在我们的程序中定义，但是我们可以直接声明并使用它，我们称之为特殊符号。</p>
+<p>链接器会在将程序最终链接成可执行文件的时候将其解析成正确的值，需要注意的是，只有使用ld链接生产最终可执行文件的时候这些符号才会存在，几个具有代表性的特殊符号如下：</p>
+<ul>
+<li>__executable_start，该符号为程序起始地址，注意，不是入口地址，是程序的最开始的地址</li>
+<li>__etext或_etext或etext，该符号为代码段结束地址，即代码段最末尾的地址</li>
+<li>_edata或edata，该符号为数据段结束地址，即数据段最末尾的地址</li>
+<li>_end或end，该符号为程序结束地址</li>
+<li>以上地址都是程序被装载时的虚拟地址</li>
+</ul>
+<p>我们可以在程序中直接使用这些符号：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * SpecialSymbol.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> __executable_start[];</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> etext[],_etext[],__etext[];</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> edata[],_edata[];</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> <span class="built_in">end</span>[],_end[];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Executable Start %X\n"</span>, __executable_start);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Text End %X %X %X\n"</span>, etext, _etext, __etext);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Data End %X %X\n"</span>, edata, _edata);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Executable End %X %X\n"</span>, <span class="built_in">end</span>, _end);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ gcc SpecialSymbol.c -o SpecialSymbol</span><br><span class="line">$ .&#x2F;SpecialSymbol </span><br><span class="line">Executable Start 400000</span><br><span class="line">Text End 40061D 40061D 40061D</span><br><span class="line">Data End 601038 601038</span><br><span class="line">Executable End 601040 601040</span><br></pre></td></tr></table></figure>
+
+<h2 id="符号修饰与函数签名"><a href="#符号修饰与函数签名" class="headerlink" title="符号修饰与函数签名"></a>符号修饰与函数签名</h2><p>为了防止例如c语言库和我们编写的代码之间的符号名冲突，最开始的unix下的c语言规定，c语言yuandaim文件中的所有全局变量和函数经过编译以后，相对应的符号名前加上下划线”_”。但是这种方法简单和原始，后来例如c++增加了<strong>名称空间（namespace）</strong>的方法来解决多模块的符号冲突问题</p>
+<p>随着时间的推移，整个环境发生了很大变化，例如linux下的gcc编译器中已经默认去掉了在c语言符号前加”_”的方式，但是windows下的编译器还保留着这样的传统。</p>
+<h3 id="C-符号修饰"><a href="#C-符号修饰" class="headerlink" title="C++符号修饰"></a>C++符号修饰</h3><p>c++拥有很多强大的特性，人们于是发明了<strong>符号修饰（Name Decoration）</strong>或<strong>符号改编（Name Mangling）</strong>机制来解决这些问题。例如下列代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">func</span><span class="params">(<span class="keyword">float</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">C2</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> N &#123;</span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">C</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中有6个同名函数叫func，只不过它们的返回类型和参数及所在的名称空间不同。我们引入一个术语叫做<strong>函数签名（Function Signature）</strong>，函数签名包含了一个函数的各种信息，包括函数名、它的参数类型、它所在的类和名称空间及其他信息。</p>
+<p>在编译器及链接器处理符号时，它们采用某种<strong>名称修饰</strong>的方法，使得每个函数签名对应一个<strong>修饰后名称（Decorated Name）</strong>。c++编译器和链接器都使用符号来识别和处理函数和变量，所以对于不同函数签名的函数，即使函数名相同，编译器和链接器也能区分它们。上面六个函数签名在gcc编译器下，相对应的修饰后名称如图：</p>
+<table>
+<thead>
+<tr>
+<th>函数签名</th>
+<th>修饰后名称（符号名）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int func(int)</td>
+<td>_Z4funci</td>
+</tr>
+<tr>
+<td>float func(float)</td>
+<td>_Z4funcf</td>
+</tr>
+<tr>
+<td>int C::func(int)</td>
+<td>_ZN1C4funcEi</td>
+</tr>
+<tr>
+<td>int C::C2func(int)</td>
+<td>_ZN1C2C24funcEi</td>
+</tr>
+<tr>
+<td>int N::func(int)</td>
+<td>_ZN1N4funcEi</td>
+</tr>
+<tr>
+<td>int N::C::func(int)</td>
+<td>_ZN1N1C4funcEi</td>
+</tr>
+</tbody></table>
+<p>不同的编译器厂商的名称修饰方法可能不同</p>
+<h2 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h2><p>c++为了和c兼容，在符号的管理上，c++有一个用来声明或定义一个c的符号的“extern“C””关键字用法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> var;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>c++编译器会将在 extern “C” 的大括号内部的代码当作c语言代码处理，所以什么的代码中，c++的名称修饰机制将会不起作用。</p>
+<p>如果单独声明某个函数或变量为c语言的符号，那么也可以使用如下格式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="keyword">int</span> var;</span><br></pre></td></tr></table></figure>
+
+<h2 id="弱符号与强符号"><a href="#弱符号与强符号" class="headerlink" title="弱符号与强符号"></a>弱符号与强符号</h2><p>对于c/c++语言来说，编译器默认函数和初始化了的全局变量为<strong>强符号（Strong Symbol）</strong>，未初始化的全局变量为<strong>弱符号（Weak Symbol）</strong>。我们也可以通过GCC的<code>&quot;__attribute__((weak))&quot;</code>来定义任何一个强符号为弱符号，需要注意的是，强符号和弱符号都是针对定义来说的，不是针对符号的引用。例如下面的程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> ext;</span><br><span class="line"><span class="keyword">int</span> weak;</span><br><span class="line"><span class="keyword">int</span> strong = <span class="number">1</span>;</span><br><span class="line">__attribute__((weak)) weak2 = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这段程序中，“weak”和“weak2”为弱符号，“strong”和“main”是强符号，而“ext”既非强符号也非弱符号，因为它是一个外部变量的引用。</p>
+<p>针对强弱符号的概念，链接器或按如下规则处理与选择被多次定义的全局符号：</p>
+<ol>
+<li>不允许强符号被多次定义（即不同的目标文件中不能有同名的强符号）：如果有多个强符号定义，则链接器报符号重复定义错误。</li>
+<li>如果一个符号在某个目标文件中是强符号，在其他文件中都是弱符号，那么选择强符号。</li>
+<li>如果一个符号在所有目标文件中都是弱符号，那么选择其中占用空间最大的一个。比如目标文件A定义全局变量global为int型，占4个字节；目标文件B定义global为double型，占8个字节，那么目标文件A和B链接后，符号global占8个字节（尽量不要使用多个不同类型的弱符号，否则容易导致很难发现的程序错误）。</li>
+</ol>
+<h3 id="弱引用和强引用"><a href="#弱引用和强引用" class="headerlink" title="弱引用和强引用"></a>弱引用和强引用</h3><p>目前我们所看到的对外部目标文件的符号引用在目标文件被最终链接成可执行文件时，它们需要被正确决议，如果没有找到该符号的定义，链接器就会报符号未定义错误，这种被称为<strong>强引用（Strong Reference）</strong>，与之相对应的是<strong>弱引用（weak Reference）</strong>，和强引用的区别在于对于未定义的弱引用，编译器不认为它是一个错误，一般链接器会默认其为0，或者是一个特殊的值，以便于程序代码能够识别。</p>
+<p>在gcc中，我们可以通过使用<code>&quot;__attribute__((weakref))&quot;</code>这个扩展关键字来声明对一个外部函数的引用为弱引用</p>
+<h1 id="3-6-调试信息"><a href="#3-6-调试信息" class="headerlink" title="3.6 调试信息"></a>3.6 调试信息</h1><p>目标文件里面还可能保存的是调试信息，如果我们在gcc编译时加上“-g”参数，编译器就会在产生的目标文件里面加上调试信息。我们用readelf等工具可以看到，目标文件里多了很多“debug”相关的段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -S SimpleSection</span><br><span class="line">...</span><br><span class="line">  [28] .debug_aranges    PROGBITS         0000000000000000  00001075</span><br><span class="line">       0000000000000030  0000000000000000           0     0     1</span><br><span class="line">  [29] .debug_info       PROGBITS         0000000000000000  000010a5</span><br><span class="line">       00000000000000ed  0000000000000000           0     0     1</span><br><span class="line">  [30] .debug_abbrev     PROGBITS         0000000000000000  00001192</span><br><span class="line">       0000000000000093  0000000000000000           0     0     1</span><br><span class="line">  [31] .debug_line       PROGBITS         0000000000000000  00001225</span><br><span class="line">       000000000000004a  0000000000000000           0     0     1</span><br><span class="line">  [32] .debug_str        PROGBITS         0000000000000000  0000126f</span><br><span class="line">       00000000000000b8  0000000000000001  MS       0     0     1</span><br><span class="line">  [33] .shstrtab         STRTAB           0000000000000000  00001cc7</span><br><span class="line">       000000000000014c  0000000000000000           0     0     1</span><br><span class="line">  [34] .symtab           SYMTAB           0000000000000000  00001328</span><br><span class="line">       0000000000000738  0000000000000018          35    54     8</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>这些段中保存的就是调试信息，现在的ELF文件采用一个叫<strong>DWARF（Debug With Arbitrary Record Format）</strong>的标准的调试信息格式。</p>
+<p>在linux下，我们可以使用“strip”命令来去掉elf文件中的调试信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$strip SimpleSection</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">0bs3rver</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/12/19/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88/">http://yoursite.com/2020/12/19/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">0bs3rver的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/">程序员的自我修养</a><a class="post-meta__tags" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/12/10/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%8E%9F%E7%90%86/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">二进制常用工具与技术的执行过程与原理</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/11/13/程序员的自我修养读书笔记-第一章 温故而知新/" title="程序员的自我修养读书笔记-第一章 温故而知新"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-13</div><div class="relatedPosts_title">程序员的自我修养读书笔记-第一章 温故而知新</div></div></a></div><div class="relatedPosts_item"><a href="/2020/11/16/程序员的自我修养读书笔记-第二章 编译和链接/" title="程序员的自我修养读书笔记-第二章 编译和链接"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-16</div><div class="relatedPosts_title">程序员的自我修养读书笔记-第二章 编译和链接</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 0bs3rver</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
