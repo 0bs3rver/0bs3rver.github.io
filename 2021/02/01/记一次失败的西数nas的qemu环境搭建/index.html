@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>记一次失败的西数nas的qemu环境搭建 | 0bs3rver的小屋</title><meta name="description" content="记一次失败的西数nas的qemu环境搭建"><meta name="keywords" content="pwn,IOT,qemu"><meta name="author" content="0bs3rver"><meta name="copyright" content="0bs3rver"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="记一次失败的西数nas的qemu环境搭建"><meta name="twitter:description" content="记一次失败的西数nas的qemu环境搭建"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="记一次失败的西数nas的qemu环境搭建"><meta property="og:url" content="http://yoursite.com/2021/02/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A5%BF%E6%95%B0nas%E7%9A%84qemu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"><meta property="og:site_name" content="0bs3rver的小屋"><meta property="og:description" content="记一次失败的西数nas的qemu环境搭建"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2021/02/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A5%BF%E6%95%B0nas%E7%9A%84qemu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"><link rel="next" title="pwnable.tw-alive_note-构造分段shellcode" href="http://yoursite.com/2021/01/14/pwnable-tw-alive-note-%E6%9E%84%E9%80%A0%E5%88%86%E6%AE%B5shellcode/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">37</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#跟着txt文件走"><span class="toc-number">1.</span> <span class="toc-text">跟着txt文件走</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5"><span class="toc-number">1.1.</span> <span class="toc-text">3.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6"><span class="toc-number">1.2.</span> <span class="toc-text">3.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5"><span class="toc-number">1.3.</span> <span class="toc-text">4.5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭qemu环境"><span class="toc-number">2.</span> <span class="toc-text">搭qemu环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置网卡"><span class="toc-number">2.1.</span> <span class="toc-text">配置网卡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭qemu环境2-0"><span class="toc-number">3.</span> <span class="toc-text">搭qemu环境2.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭qemu环境3-0"><span class="toc-number">4.</span> <span class="toc-text">搭qemu环境3.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#起服务"><span class="toc-number">5.</span> <span class="toc-text">起服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果："><span class="toc-number">6.</span> <span class="toc-text">结果：</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">0bs3rver的小屋</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">记一次失败的西数nas的qemu环境搭建</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2021-02-01 22:15:52"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-02-01</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-02-01 22:17:45"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-02-01</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/IOT/">IOT</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2k</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p>漏洞：<a href="https://www.crowdstrike.com/blog/pwn2own-tale-of-a-bug-found-and-lost-again/" target="_blank" rel="noopener">https://www.crowdstrike.com/blog/pwn2own-tale-of-a-bug-found-and-lost-again/</a></p>
+<p>固件：<a href="https://support-en.wd.com/app/products/product-detail/p/139#WD_downloads" target="_blank" rel="noopener">https://support-en.wd.com/app/products/product-detail/p/139#WD_downloads</a></p>
+<p>下载：<a href="https://downloads.wdc.com/gpl/WDMyCloud_PR4100_GPL_v2.40.155_20200713.tar.gz" target="_blank" rel="noopener">https://downloads.wdc.com/gpl/WDMyCloud_PR4100_GPL_v2.40.155_20200713.tar.gz</a></p>
+<h2 id="跟着txt文件走"><a href="#跟着txt文件走" class="headerlink" title="跟着txt文件走"></a>跟着txt文件走</h2><p>即 WD_My_Cloud_PR4100_Release_Notes_GPL_v2.40.155_20200713.txt</p>
+<h3 id="3-5"><a href="#3-5" class="headerlink" title="3.5"></a>3.5</h3><p>开始报错，所以首先应该<code>git init</code>，然后<code>sudo apt-get install lib32z1</code>，再<code>./xbuild.sh build</code>，原因如下</p>
+<ul>
+<li>fatal: Not a git repository (or any of the parent directories): .git ：<code>git init</code></li>
+<li>fatal: Needed a single revision : </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;xbuild.sh build</span><br><span class="line">fatal: Needed a single revision</span><br><span class="line">  HOSTCC  scripts&#x2F;basic&#x2F;fixdep</span><br><span class="line">  HOSTCC  scripts&#x2F;kconfig&#x2F;conf.o</span><br><span class="line">  HOSTCC  scripts&#x2F;kconfig&#x2F;zconf.tab.o</span><br><span class="line">  HOSTLD  scripts&#x2F;kconfig&#x2F;conf</span><br><span class="line">scripts&#x2F;kconfig&#x2F;conf  --silentoldconfig Kconfig</span><br><span class="line">  SYSTBL  arch&#x2F;x86&#x2F;syscalls&#x2F;..&#x2F;include&#x2F;generated&#x2F;asm&#x2F;syscalls_32.h</span><br><span class="line">  SYSHDR  arch&#x2F;x86&#x2F;syscalls&#x2F;..&#x2F;include&#x2F;generated&#x2F;asm&#x2F;unistd_32_ia32.h</span><br></pre></td></tr></table></figure>
+
+<p>报错但是没有提示信息没找着解决方案，后面就也是这种编译信息了，目前还没发现问题，先放着</p>
+<ul>
+<li>error while loading shared libraries: libz.so.1: cannot open shared object file: No such file or directory : <code>sudo apt-get install lib32z1</code></li>
+</ul>
+<h3 id="3-6"><a href="#3-6" class="headerlink" title="3.6"></a>3.6</h3><p>报错，<code>cp: cannot create regular file &#39;/home/ctfer/IOT/WDMyCloud_PR4100_GPL_v2.40.155_20200713/toolchain/../firmware/merge/WDMyCloud/bzImage&#39;: No such file or directory</code>和类似的玩意，但是好消息是这些报错和上面的<code>fatal: Needed a single revision</code>应该都是无关紧要的：</p>
+<p>The following build errors or warning messages are normal, and should be no cause for concern.</p>
+<blockquote>
+<p><strong>Copy Error (build script compensates, caused by broken xbuild script install method):</strong></p>
+<p>cp: cannot create regular file ‘/Build/WDMyCloud_PR4100_GPL_v10.30.165_20170321/toolchain/…/firmware/merge/WDMyCloud/bzImage’: No such file or directory<br>cp: cannot create regular file ‘/Build/WDMyCloud_PR4100_GPL_v10.30.165_20170321/toolchain/…/firmware/merge/WDMyCloud/’: Not a directory</p>
+<p><strong>Git Error (ignore, originates in xbuild script):</strong></p>
+<p>fatal: Needed a single revision</p>
+<p><strong>Kernel Module Signing (ignore or install certs):</strong></p>
+<p>No X.509 certificates found</p>
+<p><strong>Unresolved (ignore, probably a bug):</strong></p>
+<p>drivers/target/target_core_pr.c: In function ‘core_scsi3_pr_seq_non_holder:<br>drivers/target/target_core_pr.c:332:3: warning: ‘return’ with no value, in function returning non-void [-Wreturn-type]<br>return;</p>
+</blockquote>
+<p>来自：<a href="https://community.wd.com/t/how-to-build-custom-firmware/217408" target="_blank" rel="noopener">https://community.wd.com/t/how-to-build-custom-firmware/217408</a></p>
+<h3 id="4-5"><a href="#4-5" class="headerlink" title="4.5"></a>4.5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;xbuild.sh: 7: .&#x2F;xbuild.sh: source: not found</span><br><span class="line">.&#x2F;xbuild.sh: 21: .&#x2F;xbuild.sh: xcp: not found</span><br><span class="line">.&#x2F;xbuild.sh: 22: .&#x2F;xbuild.sh: xcp: not found</span><br></pre></td></tr></table></figure>
+
+<p>需要将shell解释器改为bash</p>
+<ol>
+<li>执行<code>ls -l /bin/sh</code>命令，若得到结果<code>/bin/sh -&gt; dash</code>，则说明shell的解释器为dash。</li>
+<li>执行<code>sudo dpkg-reconfigure dash</code>命令，然后选择no。</li>
+<li>再次执行<code>ls -l /bin/sh</code>命令，若得到结果<code>/bin/sh -&gt; bash</code>，则说明成功更改shell的解释器为bash。</li>
+</ol>
+<p><a href="https://help.aliyun.com/document_detail/109503.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/109503.html</a></p>
+<h2 id="搭qemu环境"><a href="#搭qemu环境" class="headerlink" title="搭qemu环境"></a>搭qemu环境</h2><p><code>binwalk -Me WD-NAS-firmware</code>可以直接获取到squashfs-root</p>
+<p>看exp该漏洞主要和<strong>login_mgr.cgi</strong>相关，检查可得</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ grep -r &quot;wd_login&quot;</span><br><span class="line">web&#x2F;pages&#x2F;index.php:			cmd: &#39;wd_login&#39;,</span><br><span class="line">web&#x2F;pages&#x2F;index.php:	&lt;input type&#x3D;&quot;hidden&quot; name&#x3D;&quot;cmd&quot; value&#x3D;&quot;wd_login&quot;&gt;</span><br><span class="line">web&#x2F;pages&#x2F;cgi_api.php:				case &quot;wd_login&quot;:</span><br><span class="line">Binary file cgi&#x2F;login_mgr.cgi matches</span><br><span class="line">$ file cgi&#x2F;login_mgr.cgi</span><br><span class="line">cgi&#x2F;login_mgr.cgi: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 2.6.39, stripped</span><br></pre></td></tr></table></figure>
+
+<p>查找“login_mar.cgi“没得到啥有用的信息，直接运行需要libc文件，索性先qemu起起来再说</p>
+<h3 id="配置网卡"><a href="#配置网卡" class="headerlink" title="配置网卡"></a>配置网卡</h3><p>pdf的开始报错，来试试我上次成功的路线</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install bridge-utils uml-utilities</span><br></pre></td></tr></table></figure>
+
+<p>将/etc/network/interface改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># interfaces(5) file used by ifup(8) and ifdown(8)</span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line">auto ens33</span><br><span class="line">iface ens33 inet manual</span><br><span class="line">up ifconfig ens33 0.0.0.0 up</span><br><span class="line">auto br0</span><br><span class="line">iface bro inet dhcp</span><br><span class="line"> bridge_ports ens33</span><br><span class="line"> bridge_maxwait 0</span><br></pre></td></tr></table></figure>
+
+<p>将/etc/qemu-ifup改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line">echo &quot;Executing &#x2F;etc&#x2F;qemu-ifup&quot;</span><br><span class="line">echo &quot;Bringing $1 for bridged mode...&quot;</span><br><span class="line">sudo &#x2F;sbin&#x2F;ifconfig $1 0.0.0.0 promisc up</span><br><span class="line">echo &quot;Adding $1 to br0...&quot;</span><br><span class="line">sudo &#x2F;sbin&#x2F;brctl addif br0 $1</span><br><span class="line">sleep 3</span><br></pre></td></tr></table></figure>
+
+<p>赋予文件/etc/qemu-ifup 可执行权限： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod a+x &#x2F;etc&#x2F;qemu-ifup</span><br></pre></td></tr></table></figure>
+
+<p>重启网络使所有的配置生效： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart</span><br></pre></td></tr></table></figure>
+
+<p>报错：networking.serviceJob for networking.service failed because the control process exited with error code</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop NetworkManager</span><br><span class="line">$ systemctl disable NetworkManager</span><br><span class="line">$ service network-manager restart</span><br></pre></td></tr></table></figure>
+
+<p>(看起来已经重启完成了)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ifdown ens33</span><br></pre></td></tr></table></figure>
+
+<p>还有一步$ sudo ifup br0，但是会报Unknown interface br0，但是ifconfig又有br0，非常的怪，和pdf报的错差不多，我先不去管它，来试试开个qemu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo qemu-system-x86_64 -hda debian_squeeze_amd64_standard.qcow2 -net nic,macaddr&#x3D;00:16:3e:00:00:01 -net tap</span><br></pre></td></tr></table></figure>
+
+<p>eth0找不着，且并没有分配好ip，大失败</p>
+<h2 id="搭qemu环境2-0"><a href="#搭qemu环境2-0" class="headerlink" title="搭qemu环境2.0"></a>搭qemu环境2.0</h2><p>我发现ens33和eth0好像是同一个玩意，那么根据我linux上的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ ifconfig</span><br><span class="line">br-df6b7e261c0b Link encap:Ethernet  HWaddr 02:42:80:d9:c8:c3  </span><br><span class="line">          inet addr:172.18.0.1  Bcast:172.18.255.255  Mask:255.255.0.0</span><br><span class="line">          UP BROADCAST MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:0 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0 </span><br><span class="line">          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</span><br><span class="line"></span><br><span class="line">docker0   Link encap:Ethernet  HWaddr 02:42:45:3c:3f:50  </span><br><span class="line">          inet addr:172.17.0.1  Bcast:172.17.255.255  Mask:255.255.0.0</span><br><span class="line">          UP BROADCAST MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:0 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0 </span><br><span class="line">          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</span><br><span class="line"></span><br><span class="line">ens33     Link encap:Ethernet  HWaddr 00:0c:29:2a:f6:ef  </span><br><span class="line">          inet6 addr: fe80::20c:29ff:fe2a:f6ef&#x2F;64 Scope:Link</span><br><span class="line">          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:9 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:29 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000 </span><br><span class="line">          RX bytes:765 (765.0 B)  TX bytes:3334 (3.3 KB)</span><br><span class="line"></span><br><span class="line">lo        Link encap:Local Loopback  </span><br><span class="line">          inet addr:127.0.0.1  Mask:255.0.0.0</span><br><span class="line">          inet6 addr: ::1&#x2F;128 Scope:Host</span><br><span class="line">          UP LOOPBACK RUNNING  MTU:65536  Metric:1</span><br><span class="line">          RX packets:420 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:420 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000 </span><br><span class="line">          RX bytes:32656 (32.6 KB)  TX bytes:32656 (32.6 KB)</span><br></pre></td></tr></table></figure>
+
+<p>我可以再次尝试pdf上的方法，将eth0改为ens33即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo brctl addbr br0</span><br><span class="line">$ sudo brctl addif br0 ens33</span><br><span class="line">$ sudo brctl stp br0 on</span><br><span class="line">$ sudo dhclient br0</span><br></pre></td></tr></table></figure>
+
+<p>更改qemu-ifup文件：<code>sudo vim /etc/qemu-ifup</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#This is a qemu-ifup script for bridging.</span><br><span class="line">#You can use it when starting a KVM guest with bridge mode network. #set your bridge name</span><br><span class="line">switch&#x3D;br0</span><br><span class="line">if [ -n &quot;$1&quot; ]; then</span><br><span class="line">#create a TAP interface; qemu will handle it automatically.</span><br><span class="line">#tunctl -u $(whoami) -t $1</span><br><span class="line">#start up the TAP interface</span><br><span class="line">ip link set $1 up</span><br><span class="line">sleep 1</span><br><span class="line">#add TAP interface to the bridge</span><br><span class="line">brctl addif $&#123;switch&#125; $1</span><br><span class="line">exit 0</span><br><span class="line">else</span><br><span class="line">echo &quot;Error: no interface specified&quot;</span><br><span class="line">exit 1</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>起qemu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo qemu-system-x86_64 -hda debian_squeeze_amd64_standard.qcow2 -m 256 -net nic -net tap,ifname&#x3D;tap1,script&#x3D;&#x2F;etc&#x2F;qemu-ifup,downscript&#x3D;no</span><br></pre></td></tr></table></figure>
+
+<p>还是有问题，ifup eth0失败</p>
+<h2 id="搭qemu环境3-0"><a href="#搭qemu环境3-0" class="headerlink" title="搭qemu环境3.0"></a>搭qemu环境3.0</h2><p>怀疑是我自己环境的问题，索性直接来试试在全新的ubuntu20上开</p>
+<p>直接启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-x86_64 -hda debian_squeeze_amd64_standard.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>发现qemu可以ping通主机，还能传给主机文件，也能ping通百度，但是主机却ping不通虚拟机，主要是找不着ip。qemu上ifconfig只有默认的10.0.2.15</p>
+<p>继续跟着pdf来设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo brctl addbr br0</span><br><span class="line">$ sudo brctl addif br0 ens33</span><br><span class="line">$ sudo brctl stp br0 on</span><br><span class="line">$ sudo dhclient br0</span><br></pre></td></tr></table></figure>
+
+<p>但是直接就失败了，我虽然也生成了一个br0，但是ip和ens33的一样，据学长说是DHCP的问题</p>
+<p>经教练提点，我打算放弃桥接的思路，直接进行一个qemu的端口映射，web服务，gdb调试端口啥的全都映射到主机，应该就不需要ping通了</p>
+<p>成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ qemu-system-x86_64 -hda debian_squeeze_amd64_standard.qcow2 -net user,hostfwd&#x3D;tcp:172.16.119.176:2222-:22 -net nic</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -p 2222 root@172.16.119.176</span><br></pre></td></tr></table></figure>
+
+<h2 id="起服务"><a href="#起服务" class="headerlink" title="起服务"></a>起服务</h2><p>首先mount</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mount -o bind &#x2F;dev .&#x2F;dev</span><br><span class="line">$ mount -t proc &#x2F;proc .&#x2F;proc</span><br><span class="line">$ chroot .</span><br></pre></td></tr></table></figure>
+
+<p>但是这里报错 <code>chroot failed to run command ‘/bin/bash’ no such file or directory</code></p>
+<p>找了一下，原因是缺少/bin/bash或者没有相关的库文件</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/WDMyCloud-1.png"  alt=""></p>
+<p>cp过来后发现还是不行，会报上图第一行的错，索性把qemu的/bin/bash cp过来试试</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/WDMyCloud-2.png"  alt=""></p>
+<p>把所有相关的lib文件复制完成后chroot倒是成功了，但是连ls都没有…这文件系统也太水了</p>
+<p>试图执行login_mgr.cgi 会报错<code>libc.so.6: version GLIBC_2.14 not found</code>发现似乎是glibc版本太低了，使用strings打印可以看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ strings libc.so.6 | grep GLIBC_</span><br><span class="line">GLIBC_2.2.5</span><br><span class="line">GLIBC_2.2.6</span><br><span class="line">GLIBC_2.3</span><br><span class="line">GLIBC_2.3.2</span><br><span class="line">GLIBC_2.3.3</span><br><span class="line">GLIBC_2.3.4</span><br><span class="line">GLIBC_2.4</span><br><span class="line">GLIBC_2.5</span><br><span class="line">GLIBC_2.6</span><br><span class="line">GLIBC_2.7</span><br><span class="line">GLIBC_2.8</span><br><span class="line">GLIBC_2.9</span><br><span class="line">GLIBC_2.10</span><br><span class="line">GLIBC_2.11</span><br><span class="line">GLIBC_PRIVATE</span><br></pre></td></tr></table></figure>
+
+<p>最高只支持到2.11</p>
+<p>但是有点尬住了，我试图运行的时候发现缺一堆lib库，然后发现系统支持的glibc版本太低了，打算先更新下glibc，但是运行不了，因为qemu里面嘛也没有</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/WDMyCloud-3.png"  alt=""></p>
+<p>那就只能在ub20上运行，发现缺一堆玩意就算起起来也只能勉强使用这一个服务，算了，去试试教练已经弄好的群晖nas了</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/WDMyCloud-4.png"  alt=""></p>
+<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p>最终结果就是搞定了具体的编译和qemu的网络配置，但是并没有起上来服务，溜了溜了</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">0bs3rver</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/02/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A5%BF%E6%95%B0nas%E7%9A%84qemu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">http://yoursite.com/2021/02/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A5%BF%E6%95%B0nas%E7%9A%84qemu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">0bs3rver的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pwn/">pwn</a><a class="post-meta__tags" href="/tags/IOT/">IOT</a><a class="post-meta__tags" href="/tags/qemu/">qemu</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2021/01/14/pwnable-tw-alive-note-%E6%9E%84%E9%80%A0%E5%88%86%E6%AE%B5shellcode/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">pwnable.tw-alive_note-构造分段shellcode</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/11/16/CVE-2017-17215-华为HG532命令注入漏洞分析/" title="CVE-2017-17215-华为HG532命令注入漏洞分析"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-16</div><div class="relatedPosts_title">CVE-2017-17215-华为HG532命令注入漏洞分析</div></div></a></div><div class="relatedPosts_item"><a href="/2020/11/16/vivotek远程栈溢出漏洞复现/" title="vivotek远程栈溢出漏洞复现"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-16</div><div class="relatedPosts_title">vivotek远程栈溢出漏洞复现</div></div></a></div><div class="relatedPosts_item"><a href="/2020/04/18/GUESS-fork相关/" title="GUESS-fork相关"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-18</div><div class="relatedPosts_title">GUESS-fork相关</div></div></a></div><div class="relatedPosts_item"><a href="/2020/12/03/linux-pwn技能树/" title="linux-pwn技能树"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-12-03</div><div class="relatedPosts_title">linux-pwn技能树</div></div></a></div><div class="relatedPosts_item"><a href="/2020/11/26/pwnable-tw-TcacheTear-tcache-dupANDhouse-of-spiritAND-free-hook/" title="pwnable.tw-TcacheTear-tcache-dupANDhouse-of-spiritAND__free_hook"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-26</div><div class="relatedPosts_title">pwnable.tw-TcacheTear-tcache-dupANDhouse-of-spiritAND__free_hook</div></div></a></div><div class="relatedPosts_item"><a href="/2020/11/16/pwnable-tw-applestore-利用栈平衡控制内存/" title="pwnable.tw-applestore-利用栈平衡控制内存"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-16</div><div class="relatedPosts_title">pwnable.tw-applestore-利用栈平衡控制内存</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 0bs3rver</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/search/local-search.js"></script></body></html>
