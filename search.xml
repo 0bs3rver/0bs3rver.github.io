@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>群晖NAS环境搭建</title>
+      <link href="2021/02/03/%E7%BE%A4%E6%99%96NAS%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <url>2021/02/03/%E7%BE%A4%E6%99%96NAS%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[<p>环境：链接:<a href="https://pan.baidu.com/s/1_m5PW3gptmiKBhCHP505yw" target="_blank" rel="noopener">https://pan.baidu.com/s/1_m5PW3gptmiKBhCHP505yw</a>  密码:2tos</p><p>开整群晖NAS，首先创建一个虚拟机</p><p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%BE%A4%E6%99%96NAS%E7%8E%AF%E5%A2%83-1.png"  alt=""></p><p>然后将磁盘设定为初始磁盘</p><p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%BE%A4%E6%99%96NAS%E7%8E%AF%E5%A2%83-2.png"  alt=""></p><p>最后选择自定设置，然后在虚拟机的设置界面把磁盘类型改为SATA，分配20g并选择预先分配磁盘空间，然后再创建一个新的类型为SATA的磁盘，开启虚拟机</p><p>等到出现这个界面：</p><p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E7%BE%A4%E6%99%96NAS%E7%8E%AF%E5%A2%83-3.png"  alt=""></p><p>按照提示打开 find.synology.com ，跟着步骤来，安装DMS界面选择手动安装可以去下载中心下载固件来分析，文件内也附带了固件，等待安装好，创建用户之后就完成了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IOT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn </tag>
+            
+            <tag> IOT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记一次失败的西数nas的qemu环境搭建</title>
       <link href="2021/02/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A5%BF%E6%95%B0nas%E7%9A%84qemu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
       <url>2021/02/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A5%BF%E6%95%B0nas%E7%9A%84qemu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
