@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>信息系统安全-复习 | 0bs3rver的小屋</title><meta name="description" content="信息系统安全-复习"><meta name="keywords" content="读书笔记,系统安全,复习"><meta name="author" content="0bs3rver"><meta name="copyright" content="0bs3rver"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="信息系统安全-复习"><meta name="twitter:description" content="信息系统安全-复习"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="信息系统安全-复习"><meta property="og:url" content="http://yoursite.com/2021/06/04/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8-%E5%A4%8D%E4%B9%A0/"><meta property="og:site_name" content="0bs3rver的小屋"><meta property="og:description" content="信息系统安全-复习"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2021/06/04/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8-%E5%A4%8D%E4%B9%A0/"><link rel="next" title="如何对pwn题进行patch" href="http://yoursite.com/2021/05/30/%E5%A6%82%E4%BD%95%E5%AF%B9pwn%E9%A2%98%E8%BF%9B%E8%A1%8Cpatch/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/坂本先生.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">51</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-信息系统安全绪论"><span class="toc-number">1.</span> <span class="toc-text">第一章 信息系统安全绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全设计原则"><span class="toc-number">1.1.</span> <span class="toc-text">安全设计原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-信息安全经典模型"><span class="toc-number">2.</span> <span class="toc-text">第二章 信息安全经典模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#贝-拉模型（BLP模型）："><span class="toc-number">2.1.</span> <span class="toc-text">贝-拉模型（BLP模型）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#毕巴模型（Biba模型）："><span class="toc-number">2.2.</span> <span class="toc-text">毕巴模型（Biba模型）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型实施模型（TE，Type-Enforcement）"><span class="toc-number">2.3.</span> <span class="toc-text">类型实施模型（TE，Type Enforcement）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域内实施模型（DTE，Domain-and-Type-Enforcement）"><span class="toc-number">2.4.</span> <span class="toc-text">域内实施模型（DTE，Domain and Type Enforcement）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-系统安全硬件基础"><span class="toc-number">3.</span> <span class="toc-text">第三章 系统安全硬件基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-用户身份认证机制"><span class="toc-number">4.</span> <span class="toc-text">第四章 用户身份认证机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#身份认证技术"><span class="toc-number">4.1.</span> <span class="toc-text">身份认证技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#口令管理"><span class="toc-number">4.2.</span> <span class="toc-text">口令管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章-操作系统基础安全机制"><span class="toc-number">5.</span> <span class="toc-text">第五章 操作系统基础安全机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#扩充访问"><span class="toc-number">5.1.</span> <span class="toc-text">扩充访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于ACL的访问控制方法"><span class="toc-number">5.2.</span> <span class="toc-text">基于ACL的访问控制方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于特权分离的访问控制机制"><span class="toc-number">5.3.</span> <span class="toc-text">基于特权分离的访问控制机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#syslog日志信息的紧迫级别"><span class="toc-number">5.4.</span> <span class="toc-text">syslog日志信息的紧迫级别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-操作系统强制安全机制"><span class="toc-number">6.</span> <span class="toc-text">第六章 操作系统强制安全机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SETE模型与DTE模型的区别"><span class="toc-number">6.1.</span> <span class="toc-text">SETE模型与DTE模型的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举例说明SETE模型有哪些常用客体类别，并举出它们的几个常见权限"><span class="toc-number">6.1.1.</span> <span class="toc-text">举例说明SETE模型有哪些常用客体类别，并举出它们的几个常见权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程工作域切换授权"><span class="toc-number">6.2.</span> <span class="toc-text">进程工作域切换授权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章-数据库基础安全机制"><span class="toc-number">7.</span> <span class="toc-text">第七章 数据库基础安全机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关系数据库自主访问授权"><span class="toc-number">7.1.</span> <span class="toc-text">关系数据库自主访问授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#否定式授权"><span class="toc-number">7.2.</span> <span class="toc-text">否定式授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RBAC的基本思想"><span class="toc-number">7.3.</span> <span class="toc-text">RBAC的基本思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库推理控制"><span class="toc-number">7.4.</span> <span class="toc-text">数据库推理控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库数据推理的方法"><span class="toc-number">7.4.1.</span> <span class="toc-text">数据库数据推理的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库数据的推理控制"><span class="toc-number">7.4.2.</span> <span class="toc-text">数据库数据的推理控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十章-云计算环境安全机制"><span class="toc-number">8.</span> <span class="toc-text">第十章 云计算环境安全机制</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">0bs3rver的小屋</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">信息系统安全-复习</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2021-06-04 13:49:23"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-06-04</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-06-04 13:53:32"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-06-04</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">3.4k</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h2 id="第一章-信息系统安全绪论"><a href="#第一章-信息系统安全绪论" class="headerlink" title="第一章 信息系统安全绪论"></a>第一章 信息系统安全绪论</h2><p>机密性：confidentiality    防止私密的或机密的信息泄漏给非授权的实体的属性。</p>
+<p>完整性：integrity    分为数据完整性和系统完整性。数据完整性指确保数据只能按照授权的指定方式进行修改的属性；系统完整性指系统没有受到未经授权的操控进而完好无损地执行预定功能的属性。</p>
+<p>可用性：availability    指确保系统及时工作并向授权用户提供所需服务的属性。</p>
+<p>安全策略：是指规定一个组织未达到安全目标如何管理、保护和发布信息资源的法律、规章和条例的集合。</p>
+<p>安全模型：是指拟由系统实施的安全策略的形式化表示。</p>
+<p>安全机制：是指实现安全功能的逻辑或算法。</p>
+<h3 id="安全设计原则"><a href="#安全设计原则" class="headerlink" title="安全设计原则"></a>安全设计原则</h3><ol>
+<li>经济性原则（Economy of Mechanism）：应该把安全机制设计得尽可能简单和短小。</li>
+<li>默认拒绝原则（Fail-Safe Defaults）：安全机制对访问请求对决定应采取默认拒绝方案。</li>
+<li>完全仲裁原则（Complete Mediation）：安全机制实施的授权检查必须能够覆盖系统中的任何一个访问操作。</li>
+<li>开放设计原则（Open Design）：不要把安全机制的设计方案视作秘密。</li>
+<li>特权分离原则（Separation of Privilege）：对特权进行细分，把一项特权分成多项特权，分配给多个主体。</li>
+<li>最小特权原则（Least Privilege）：系统中的每个程序和每个用户应该只拥有完成工作所需特权的最小集合。</li>
+<li>最小公共机制原则（Least Common Mechanism）：把由多个用户共用和被全体用户依赖的机制的数量减到最小。</li>
+<li>心理可接受原则（Psychological Acceptability）：把安全机制的人机界面设计得好用是至关重要的工作。</li>
+</ol>
+<h2 id="第二章-信息安全经典模型"><a href="#第二章-信息安全经典模型" class="headerlink" title="第二章 信息安全经典模型"></a>第二章 信息安全经典模型</h2><p>自主访问控制（DAC，Discretionary Access Control）：作为客体的拥有者的用户个体可以通过设置访问控制属性来准许或拒绝对该客体的访问。</p>
+<p>强制访问控制（MAC，Mandatory Access Control）：只有系统才能控制对客体的访问，而用户个体不能改变这种控制。</p>
+<h3 id="贝-拉模型（BLP模型）："><a href="#贝-拉模型（BLP模型）：" class="headerlink" title="贝-拉模型（BLP模型）："></a>贝-拉模型（BLP模型）：</h3><p>贝-拉模型的核心内容由简单安全特性（ss-特性）、星号安全特性（<em>-特性）、自主安全特性（ds-特性）和一个基本安全定理构成。*</em>不上读，不下写**</p>
+<p>简单安全特性（ss-特性，MAC）：给定安全级别的主体无法读取更高安全级别的对象</p>
+<p>星号安全特性（*-特性，MAC）：给定安全级别的主体无法写入任何更低安全级别的对象</p>
+<p>自主安全特性（ds-特性，DAC）：使用访问矩阵来规定自主访问控制</p>
+<p>基本安全定理：如果系统每一次变化都满足ss-特性、*-特性和ds-特性的要求，那么系统的整个变化过程中，系统的安全性一定不会被破坏。</p>
+<h3 id="毕巴模型（Biba模型）："><a href="#毕巴模型（Biba模型）：" class="headerlink" title="毕巴模型（Biba模型）："></a>毕巴模型（Biba模型）：</h3><p>是强制访问控制模型，用完整性级别来对完整性进行量化描述。<strong>上写，下读</strong>。</p>
+<h3 id="类型实施模型（TE，Type-Enforcement）"><a href="#类型实施模型（TE，Type-Enforcement）" class="headerlink" title="类型实施模型（TE，Type Enforcement）"></a>类型实施模型（TE，Type Enforcement）</h3><p>TE通过对主体和客体进行分组，定义域和类型的概念，以此为基础实施强制访问控制模型。</p>
+<p>在TE模型中，系统中的所有主体被划分成若干个组，每个组称为一个域（Domain），系统中的所有客体被划分成若干组，每个组称为一个类型（Type）。</p>
+<h3 id="域内实施模型（DTE，Domain-and-Type-Enforcement）"><a href="#域内实施模型（DTE，Domain-and-Type-Enforcement）" class="headerlink" title="域内实施模型（DTE，Domain and Type Enforcement）"></a>域内实施模型（DTE，Domain and Type Enforcement）</h3><p>是TE的改进版本，特点：</p>
+<ol>
+<li>使用高级语言描述访问控制策略，提供DTE语言（DTEL）</li>
+<li>采用隐含方式表示文件属性</li>
+</ol>
+<h2 id="第三章-系统安全硬件基础"><a href="#第三章-系统安全硬件基础" class="headerlink" title="第三章 系统安全硬件基础"></a>第三章 系统安全硬件基础</h2><p>可信计算技术的基本出发点是借助低成本的硬件芯片建立可信的计算环境，而这类硬件芯片恰好就提供基本的完整性度量功能和密钥管理功能。</p>
+<ul>
+<li>信任（Trust）指的是对行为符合预期的认同感</li>
+<li>信任根（Root of Trust）指的是系统关键的基本元素的集合，它拥有描述平台信任相关特性的最小功能集，它是默认的信任基础。</li>
+<li>度量核心信任根（CRTM，Core Root of Trust Measurement）指的是执行完整性度量任务的最基础的指令集合，它是信任根的组成部分。</li>
+<li>信任传递（Transitive Trust）指的是信任根为可执行的功能建立信任的过程，一个功能的信任建立后，可用于为下一个可执行的功能建立信任。</li>
+<li>信任链（Chain of Trust）指的是信任根从初始完整性度量起建立的一系列信任组成的序列。</li>
+<li>可信平台模块（TPM）指的是由TCG定义的、通常以单芯片形式实现的硬件组件，它拥有独立的处理器、RAM、ROM和闪存，具有独立于宿主系统的状态，通过专用接口与宿主系统交互，它提供的核心功能是存储和宝盖完整性度量结果。</li>
+<li>由TPM实现并以命令形式提供的操作称为受保护功能（Protected Capability），由TPM提供的、与外界隔离的、只能通过受保护功能访问的存储空间称为受保护存储区（Shielded Location）</li>
+<li>可信构造块（TBB，Trusted Building Block）指的是计算机上用于构造信任根的组件的集合，属于信任根的一部分。</li>
+<li>可信计算基（TCB）指的是系统中负责实现系统的安全策略的软/硬件资源的集合，它的重要特性之一是能够防止它之外的软/硬件对它造成破坏。</li>
+</ul>
+<h2 id="第四章-用户身份认证机制"><a href="#第四章-用户身份认证机制" class="headerlink" title="第四章 用户身份认证机制"></a>第四章 用户身份认证机制</h2><h3 id="身份认证技术"><a href="#身份认证技术" class="headerlink" title="身份认证技术"></a>身份认证技术</h3><ol>
+<li>基于口令的身份认证：每个用户事先都要确定一个口令（Password）</li>
+<li>质询-响应（Challenge-Response）式身份认证：认证机制与用户之间约定一种秘密的计算功能，每次认证时，认证机制给用户发送一个随机消息（质询），用户用约定的计算功能对该消息进行计算，将计算结果（响应）返回给认证机制。</li>
+<li>基于生物特征的身份认证利用用户身体特征的唯一性确定用户的身份。</li>
+<li>基于位置的身份认证把用户所处的地理位置信息运用于确定用户的身份。</li>
+</ol>
+<h3 id="口令管理"><a href="#口令管理" class="headerlink" title="口令管理"></a>口令管理</h3><p>在口令管理中，给口令拌入随机数的过程称为给口令撒盐（Salting），拌入的随机数称为口令的盐值（Salt Value）。</p>
+<p>口令撒盐的简单实现方法：确定一个哈希算法Ahash，对任意给定的用户口令Dpw，设计把盐值撒到口令Dpw中的算法Asalt（Dsalt，Dpw）</p>
+<ol>
+<li>把盐值附加到口令上：Dtmp = Dpw || Dsalt</li>
+<li>生成哈希值：Dhash = Ahash（Dtmp）</li>
+<li>以Dhash作为返回结果</li>
+</ol>
+<h2 id="第五章-操作系统基础安全机制"><a href="#第五章-操作系统基础安全机制" class="headerlink" title="第五章 操作系统基础安全机制"></a>第五章 操作系统基础安全机制</h2><p>把每个用户域中的用户看作一类用户，则系统中的用户便分成了三类，分别是属主类、属组类和其余类。可以同时定义三类用户对一个文件的访问权限。</p>
+<p>一类用户对一个文件的访问权限可以由3个二进制比特位表示，因此，三类用户对一个文件的访问权限可以由9个二进制比特位表示。</p>
+<h3 id="扩充访问"><a href="#扩充访问" class="headerlink" title="扩充访问"></a>扩充访问</h3><p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%A4%8D%E4%B9%A0-5-1.png"  alt=""></p>
+<h3 id="基于ACL的访问控制方法"><a href="#基于ACL的访问控制方法" class="headerlink" title="基于ACL的访问控制方法"></a>基于ACL的访问控制方法</h3><p>访问控制表（ACL，Access Control List）</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%A4%8D%E4%B9%A0-5-2.png"  alt=""></p>
+<h3 id="基于特权分离的访问控制机制"><a href="#基于特权分离的访问控制机制" class="headerlink" title="基于特权分离的访问控制机制"></a>基于特权分离的访问控制机制</h3><p>特权分离原则就是要尽可能地对系统中的特权任务进行细分，让多个不同的用户去承担不同的细分任务，不要把系统特权集中到个别用户身上。</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%A4%8D%E4%B9%A0-5-3.png"  alt=""></p>
+<h3 id="syslog日志信息的紧迫级别"><a href="#syslog日志信息的紧迫级别" class="headerlink" title="syslog日志信息的紧迫级别"></a>syslog日志信息的紧迫级别</h3><ul>
+<li>emerg  紧急：出现了紧急情况，如系统即将崩溃，此类信息通常向所有用户广播</li>
+<li>alert   警告：发生了需要立刻改正的事情，如系统数据库遭到破坏</li>
+<li>crit  关键：出现了关键问题，如硬件出错</li>
+<li>err  出错：普通错误信息，表示遇到了不正确的事情</li>
+<li>warning  提醒：遇到非常规情况</li>
+<li>notice  注意：遇到特殊事情，不是错误，但可能要特殊处理</li>
+<li>debug  提示：调试程序时使用的信息</li>
+</ul>
+<h2 id="第六章-操作系统强制安全机制"><a href="#第六章-操作系统强制安全机制" class="headerlink" title="第六章 操作系统强制安全机制"></a>第六章 操作系统强制安全机制</h2><h3 id="SETE模型与DTE模型的区别"><a href="#SETE模型与DTE模型的区别" class="headerlink" title="SETE模型与DTE模型的区别"></a>SETE模型与DTE模型的区别</h3><p>SELinux是安全增强Linux（Security Enhanced Linux）的缩写，SELinux机制实现的安全模型的核心是DTE模型</p>
+<p>SETE（SELinux Type Enforcement）模型的核心是DTE模型，与之相比，具有以下突出特点：</p>
+<ol>
+<li>概念的细分：DTE模型把客体划分为类型，针对类型确定访问权限，SETE模型在类型概念的基础上，增加客体类别（Class）概念，针对类型和类别确定访问权限。</li>
+<li>权限的细化：SETE模型为客体定义了几十个类别，为每个类别定义了相应的访问权限。</li>
+</ol>
+<h4 id="举例说明SETE模型有哪些常用客体类别，并举出它们的几个常见权限"><a href="#举例说明SETE模型有哪些常用客体类别，并举出它们的几个常见权限" class="headerlink" title="举例说明SETE模型有哪些常用客体类别，并举出它们的几个常见权限"></a>举例说明SETE模型有哪些常用客体类别，并举出它们的几个常见权限</h4><ul>
+<li>file（普通文件）：read（读）、write（写）、execute（执行）、getattr（取属性）、create（创建）等</li>
+<li>dir（目录）：read（读）、write（写）、search（搜索）、rmdir（删除）等</li>
+<li>process（进程）：signal（发信号）、transition（域切换）、fork（创建子进程）、getattr（取属性）等</li>
+<li>socket（套接字）：bind（绑定名字）、listen（侦听连接）、connect（发起连接）、accept（接受连接）等</li>
+<li>filesysten（文件系统）：mount（挂载）、unmount（卸载）等</li>
+</ul>
+<h3 id="进程工作域切换授权"><a href="#进程工作域切换授权" class="headerlink" title="进程工作域切换授权"></a>进程工作域切换授权</h3><p>设在linux系统中，用户bob登录后欲修改其口令，试分析该过程通过改变进程的有效身份以获得访问shadow口令文件的权限的方法</p>
+<p><img src="/" class="lazyload" data-src="https://space.0bs3rver.workers.dev/0bs3rver/Picture/master//blogimg/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%A4%8D%E4%B9%A0-6-1.png"  alt=""></p>
+<h2 id="第七章-数据库基础安全机制"><a href="#第七章-数据库基础安全机制" class="headerlink" title="第七章 数据库基础安全机制"></a>第七章 数据库基础安全机制</h2><h3 id="关系数据库自主访问授权"><a href="#关系数据库自主访问授权" class="headerlink" title="关系数据库自主访问授权"></a>关系数据库自主访问授权</h3><p>一个具有一般性的授权可以通过这个形式来描述：<strong>（S，O，A，P）</strong></p>
+<p>其中，S，O，A，P分别表示主体、客体、访问类型和谓词。该授权所表达的意思是：当P谓词为真时，主体S有权对客体O进行A类型的访问。通常，A可以表示在O上的查询、插入、更新或删除操作等。</p>
+<p>如果P取空值，则可以得到授权的简单形式为：<strong>（S，O，A）</strong></p>
+<p>它表示主体S有权对客体O进行A类型的访问。如果设S为用户TOM，O为表EMP，A为SELECT，则以上授权表示用户TOM具有在表EMP上执行SELECT操作的权限。</p>
+<h3 id="否定式授权"><a href="#否定式授权" class="headerlink" title="否定式授权"></a>否定式授权</h3><ul>
+<li>否定优先原则：如果一个主体既拥有在某个个体上进行某种操作的肯定式授权，又拥有在该客体上进行同样操作的否定式授权，那么否定式授权发挥作用，肯定式授权不起作用。</li>
+<li>个体优先原则：如果某个小组及组中的某个用户都拥有同一个体上的同一种访问类型的授权，并且两者所拥有的授权是冲突的，那么用户拥有的授权发挥作用，小组拥有的授权不起作用</li>
+</ul>
+<h3 id="RBAC的基本思想"><a href="#RBAC的基本思想" class="headerlink" title="RBAC的基本思想"></a>RBAC的基本思想</h3><p>基于角色的访问控制（RBAC，Role-Based Access  Control）：根据岗位工作职责进行授权，就是把访问控制授权分配到工作岗位上，而不是直接分配给用户个人。谁在某个工作岗位上工作，谁就拥有分配到该工作岗位上的授权。当一个用户调离某个工作岗位时，他就自动失去分配到该工作岗位上的授权。</p>
+<h3 id="数据库推理控制"><a href="#数据库推理控制" class="headerlink" title="数据库推理控制"></a>数据库推理控制</h3><h4 id="数据库数据推理的方法"><a href="#数据库数据推理的方法" class="headerlink" title="数据库数据推理的方法"></a>数据库数据推理的方法</h4><ol>
+<li>借助求和结果进行推理</li>
+<li>借助记录个数进行推理</li>
+<li>借助平均值进行推理</li>
+<li>借助中位数进行推理</li>
+<li>借助智能填充进行推理</li>
+<li>借助线性特性进行推理</li>
+</ol>
+<h4 id="数据库数据的推理控制"><a href="#数据库数据的推理控制" class="headerlink" title="数据库数据的推理控制"></a>数据库数据的推理控制</h4><ul>
+<li>滤除法（Suppression）：当查询可能涉及敏感信息时，默默拒绝提供查询结果，不给出任何反馈。</li>
+<li>隐藏法（Concealing）：当查询可能涉及敏感信息时，隐藏掉部分与查询相关的信息，只提供近似查询结果。</li>
+</ul>
+<p>滤除法要么不提供查询结果，要么提供正确的查询结果。隐藏法总是提供查询结果，但所提供的可能是不全面的结果。</p>
+<h2 id="第十章-云计算环境安全机制"><a href="#第十章-云计算环境安全机制" class="headerlink" title="第十章 云计算环境安全机制"></a>第十章 云计算环境安全机制</h2><p>云计算（Cloud Computing）是一种可以方便地通过网络对共享的可配置计算资源池进行按需访问的模型，池中资源只需很少的管理付出或服务提供者帮助就能快速供应和释放。</p>
+<p>五个本质特征：按需自助服务、广泛网络访问、池式资源供应、快速弹性伸缩、服务计量使用。</p>
+<p>三种服务模式：软件即服务（SaaS）、平台即服务（PaaS）、基础设施即服务（IaaS）</p>
+<p>四种部署模式：私有云、社区云、公有云、混合云</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">0bs3rver</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2021/06/04/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8-%E5%A4%8D%E4%B9%A0/">http://yoursite.com/2021/06/04/%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8-%E5%A4%8D%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">0bs3rver的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/">系统安全</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E4%B9%A0/">复习</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2021/05/30/%E5%A6%82%E4%BD%95%E5%AF%B9pwn%E9%A2%98%E8%BF%9B%E8%A1%8Cpatch/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">如何对pwn题进行patch</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/11/13/程序员的自我修养读书笔记-第一章 温故而知新/" title="程序员的自我修养读书笔记-第一章 温故而知新"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-13</div><div class="relatedPosts_title">程序员的自我修养读书笔记-第一章 温故而知新</div></div></a></div><div class="relatedPosts_item"><a href="/2020/12/19/程序员的自我修养读书笔记-第三章-目标文件里有什么/" title="程序员的自我修养读书笔记-第三章-目标文件里有什么"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-12-19</div><div class="relatedPosts_title">程序员的自我修养读书笔记-第三章-目标文件里有什么</div></div></a></div><div class="relatedPosts_item"><a href="/2020/11/16/程序员的自我修养读书笔记-第二章 编译和链接/" title="程序员的自我修养读书笔记-第二章 编译和链接"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-11-16</div><div class="relatedPosts_title">程序员的自我修养读书笔记-第二章 编译和链接</div></div></a></div><div class="relatedPosts_item"><a href="/2021/04/30/《影响力》读书笔记（一）/" title="《影响力》读书笔记（一）"><img class="relatedPosts_cover lazyload"data-src="/img/post.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-04-30</div><div class="relatedPosts_title">《影响力》读书笔记（一）</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 0bs3rver</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/search/local-search.js"></script></body></html>
